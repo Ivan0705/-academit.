@@ -1,4 +1,4 @@
-package ru.academit.ivanvish;
+package ru.academit.ivanvish.main.Range.Range;
 
 import java.util.Scanner;
 
@@ -32,8 +32,10 @@ public class Range {
     }
 
     private boolean isInside(double enterPointC) {
-        double epsilon = 1.0e-10;
-        return ((enterPointC - to >= -epsilon) && (from - enterPointC >= -epsilon));
+        if (enterPointC >= to && enterPointC <= from) {
+            return true;
+        }
+        return false;
     }
 
     private void print() {
@@ -49,9 +51,9 @@ public class Range {
         System.out.println(isInside(enterPointC) ? "Точка C лежит на отрезке AB" : "Точка C не лежит на отрезке AB");
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Range range = new Range(3, 13);
         range.print();
         range.scanner();
-    }
+    }*/
 }
