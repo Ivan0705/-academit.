@@ -5,13 +5,16 @@ import ru.academit.ivanvish.main.Range.Range.Range;
 public class Main {
     public static void main(String[] args) {
         Range range = new Range(4, 13);
-        Range range1 = new Range(7, 19);
+        Range range1 = new Range(6, 18);
 
-        Range interSectionResult = range.getIntersection(range1);
+        range.print();
+        range.scanner();
+
+        Range intersection = range.getIntersection(range1);
         Range[] summing = range.getMerge(range1);
         Range[] difference = range.getDifference(range1);
 
-        if (interSectionResult == null) {
+        if (intersection == null) {
             System.out.println((Range) null);
         } else {
             System.out.println("Сумма двух интервалов = " + summing[0].getFrom() + " : " + summing[0].getTo());

@@ -1,5 +1,7 @@
 package ru.academit.ivanvish.main.Range.Range;
 
+import java.util.Scanner;
+
 public class Range {
 
     private double from;
@@ -26,12 +28,23 @@ public class Range {
         return (this.from);
     }
 
-    private double getLength1() {
-        return Math.abs((from - to));
+    public double getLength() {
+        return to - from;
     }
 
     private boolean isInside(double enterPointC) {
         return (enterPointC <= to && enterPointC >= from);
+    }
+
+    public void scanner() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите точку, лежащей на отрезке АВ: ");
+        double enterPointC = scanner.nextDouble();
+        System.out.println(isInside(enterPointC) ? "Точка С лежит на отрезка АВ" : "Точка С не лежит на отрезке АВ");
+    }
+
+    public void print() {
+        System.out.println("Длина отрезка АB: " + getLength());
     }
 
     public Range getIntersection(Range range) {
@@ -72,10 +85,14 @@ public class Range {
             return new Range[]{new Range(from, range.to)};
         }
         return new Range[]{};*/
-        if (((Math.max(from, to) > Math.min(range.from, range.to)) || (Math.max(range.from, range.to) > Math.min(from, to)))) {
-            return new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
+        if (Math.max(from, range.from) <= Math.min(to, range.to)) {
+            if (((Math.max(from, to) > Math.min(range.from, range.to)) || (Math.max(range.from, range.to) > Math.min(from, to)))) {
+                return new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            return new Range[]{new Range(Math.min(from, range.from), Math.min(to, range.to)), new Range(Math.max(from, range.from), Math.max(to, range.to))};
         }
     }
 
@@ -108,10 +125,14 @@ public class Range {
             return new Range[]{new Range(range.from, from), new Range(from, range.to)};
         }
         return new Range[]{};*/
-        if (((Math.max(from, to) > Math.min(range.from, range.to)) || (Math.max(range.from, range.to) > Math.min(from, to)))) {
-            return new Range[]{new Range(Math.min(range.from, from), Math.max(from, range.from)), new Range(Math.min(to, range.to), Math.max(range.to, to))};
+        if (Math.max(from, range.from) <= Math.min(to, range.to)) {
+            if (((Math.max(from, to) > Math.min(range.from, range.to)) || (Math.max(range.from, range.to) > Math.min(from, to)))) {
+                return new Range[]{new Range(Math.min(range.from, from), Math.max(from, range.from)), new Range(Math.min(to, range.to), Math.max(range.to, to))};
+            }
+            return new Range[]{};
+        } else {
+            return null;
         }
-        return null;
     }
 }
 
