@@ -2,13 +2,18 @@ package ru.academit.ivanvish.main.Range.Main;
 
 import ru.academit.ivanvish.main.Range.Range.Range;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        Range range = new Range(4, 13);
-        Range range1 = new Range(6, 18);
+        Range range = new Range(2, 8);
+        Range range1 = new Range(2, 8);
 
         range.print();
-        range.scanner();
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите точку, лежащей на отрезке АВ: ");
+        double enterPointC = scanner.nextDouble();
+        System.out.println(range.isInside(enterPointC) ? "Точка С лежит на отрезка АВ" : "Точка С не лежит на отрезке АВ");
 
         Range intersection = range.getIntersection(range1);
         Range[] summing = range.getMerge(range1);
