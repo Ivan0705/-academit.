@@ -1,4 +1,4 @@
-package ru.academits.ivan.shapes;
+package ru.academits.ivan.shapes.Main.Main;
 
 public class Main {
     public static void main(String[] args) {
