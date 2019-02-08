@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Range range1 = new Range(2, 13);
-        Range range = new Range(5, 18);
+        Range range1 = new Range(2, 6);
+        Range range = new Range(7, 8);
 
         range.print();
         Scanner scanner = new Scanner(System.in);
@@ -23,11 +23,17 @@ public class Main {
             System.out.println((Range) null);
         } else {
             System.out.println("Сумма двух интервалов = " + summing[0].getFrom() + " : " + summing[0].getTo());
-
             if (difference.length == 0) {
                 System.out.println("ОбъектА - ОбъектВ = интервал пустой");
-            } else {
+            } else if (difference.length == 1) {
+                if (range.getFrom() == range1.getFrom()) {
+                    System.out.println("ОбъектА - ОбъектВ = ");
+                } else {
+                    System.out.println("ОбъектА - ОбъектВ = " + difference[0].getFrom() + " : " + difference[0].getTo());
+                }
+            } else if (difference.length == 2) {
                 System.out.println("ОбъектА - ОбъектВ = " + difference[0].getFrom() + " : " + difference[0].getTo());
+                System.out.println("ОбъектА - ОбъектВ = " + difference[1].getFrom() + " : " + difference[1].getTo());
             }
         }
     }
