@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Range range1 = new Range(2, 6);
-        Range range = new Range(7, 8);
+        Range range1 = new Range(2, 8);
+        Range range = new Range(4, 6);
 
         range.print();
         Scanner scanner = new Scanner(System.in);
