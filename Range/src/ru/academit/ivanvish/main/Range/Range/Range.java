@@ -68,8 +68,7 @@ public class Range {
                 return new Range[]{object2, object1};
             }
         }
-
-      /*  Range object1 = new Range(Math.min(from, range.from), Math.min(to, range.to));
+        /*  Range object1 = new Range(Math.min(from, range.from), Math.min(to, range.to));
         Range object2 = new Range(Math.max(from, range.from), Math.max(to, range.to));
         Range unionTwoObjects = new Range(Math.min(from, range.from), Math.max(to, range.to));
 

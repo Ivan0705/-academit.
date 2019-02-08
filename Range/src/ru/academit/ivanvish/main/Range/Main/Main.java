@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Range range1 = new Range(2, 8);
+        Range range1 = new Range(2, 9);
         Range range = new Range(4, 6);
 
         range.print();
