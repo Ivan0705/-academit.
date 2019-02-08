@@ -33,7 +33,6 @@ public class Main {
                 }
             } else if (difference.length == 2) {
                 System.out.println("ОбъектА - ОбъектВ = " + difference[0].getFrom() + " : " + difference[0].getTo());
-                System.out.println("ОбъектА - ОбъектВ = " + difference[1].getFrom() + " : " + difference[1].getTo());
             }
         }
     }
