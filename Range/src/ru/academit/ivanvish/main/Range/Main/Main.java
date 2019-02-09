@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Range range1 = new Range(2, 9);
-        Range range = new Range(4, 6);
+        Range range = new Range(2, 8);
+        Range range1 = new Range(4, 8);
 
         range.print();
         Scanner scanner = new Scanner(System.in);
@@ -26,13 +26,11 @@ public class Main {
             if (difference.length == 0) {
                 System.out.println("ОбъектА - ОбъектВ = интервал пустой");
             } else if (difference.length == 1) {
-                if (range.getFrom() == range1.getFrom()) {
-                    System.out.println("ОбъектА - ОбъектВ = ");
-                } else {
-                    System.out.println("ОбъектА - ОбъектВ = " + difference[0].getFrom() + " : " + difference[0].getTo());
-                }
+                System.out.println("Длина  диапазона равна = " + difference[0].getFrom() + " : " + difference[0].getTo());
+                System.out.println("Интервал пустой ");
             } else if (difference.length == 2) {
-                System.out.println("ОбъектА - ОбъектВ = " + difference[0].getFrom() + " : " + difference[0].getTo());
+                System.out.println("Длина первого диапазона равна = " + difference[0].getFrom() + " : " + difference[0].getTo());
+                System.out.println("Длина второго диапазона равна = " + difference[1].getFrom() + " : " + difference[1].getTo());
             }
         }
     }
