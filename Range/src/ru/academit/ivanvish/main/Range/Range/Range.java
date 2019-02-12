@@ -48,7 +48,7 @@ public class Range {
     }
 
     public Range[] getMerge(Range range) {
-        if (Math.max(from, range.from) < Math.min(range.to, to)) {
+        if (Math.max(from, range.from) <= Math.min(range.to, to)) {
             Range union = new Range(Math.min(from, range.from), Math.max(to, range.to));
             return new Range[]{union};
         } else {
@@ -63,7 +63,7 @@ public class Range {
             return new Range[]{new Range(from, range.from), new Range(range.to, to)};
         } else if ((from >= range.from) && (range.to >= to)) {
             return new Range[]{};
-        } else if (range.from > to || from > range.to) {
+        } else if (range.from >= to || from >= range.to) {
             return new Range[]{new Range(from, to)};
         } else if ((from >= range.from) && (to > range.to)) {
             return new Range[]{new Range(range.to, to)};
