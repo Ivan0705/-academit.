@@ -36,4 +36,26 @@ public class Rectangle implements Shapes {
     public double getPerimeter() {
         return 2 * (height + width);
     }
+
+    @Override
+    public String toString() {
+        return "Прямоугольник " + "\n" + "Площадь: " + getArea() + "\n" + "Периметр:" + getPerimeter() + "\n" + "Ширина:" + width + "\n" + "Высота:" + height + "\n";
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        int result = 1;
+        result = prime * result + Double.hashCode(width);
+        result = prime * result + Double.hashCode(height);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Rectangle))
+            return false;
+        Rectangle p = (Rectangle) o;
+        return (o == this) || (width == p.width && height == p.height);
+    }
 }

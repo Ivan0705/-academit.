@@ -1,39 +1,40 @@
 package ru.academits.ivan.shapes.Main.Main;
 
 import ru.academits.ivan.shapes.Main.Shapes.*;
-import ru.academits.ivan.shapes.Main.Shapes.Comparator;
 
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        Square square = new Square(5);
+        Rectangle rectangle = new Rectangle(5, 6);
+        Rectangle rectangle1 = new Rectangle(7, 9);
+        Triangle triangle = new Triangle(8, 1, 4, 6, 7, 1);
+        Triangle triangle1 = new Triangle(5, 2, 6, 3, 9, 11);
+        Circle circle = new Circle(2);
 
-        Square sq = new Square(5);
-        System.out.println("Площадь квадрата: " + sq.getArea());
-        System.out.println("Периметр квадрата: " + sq.getPerimeter());
+        Shapes[] array = new Shapes[]{triangle, rectangle, square, triangle1, circle, rectangle1};
+        StringBuilder stringBuilder = new StringBuilder();
 
-        Rectangle rc = new Rectangle(5, 6);
-        System.out.println("Площадь прямоугольника: " + rc.getArea());
-        System.out.println("Периметр прямоугольника: " + rc.getPerimeter());
+        stringBuilder.append(getMaxArea(array).toString())
+                .append("\n")
+                .append(getSecondMaxPerimeter(array).toString());
 
-        Triangle tr = new Triangle(8, 1, 4, 6, 7, 1);
-        System.out.println("Ширина треугольника: " + tr.getWidth());
-        System.out.println("Высота треугольника: " + tr.getHeight());
-        System.out.println("Площадь треугольника:" + tr.getArea());
-        System.out.println("периметр треугольника: " + tr.getPerimeter());
+        String result = stringBuilder.toString();
+        System.out.println(result);
+    }
 
-        Circle crl = new Circle(2, 3);
-        System.out.println("Площадь круга :" + crl.getArea());
-        System.out.println("Периметр круга: " + crl.getPerimeter());
+    public static Shapes getMaxArea(Shapes[] arrayShapes) {
+        Arrays.sort(arrayShapes, new sortedByArea());
+        return ((arrayShapes[arrayShapes.length - 1]));
+    }
 
-        double[] array = {sq.getArea(), rc.getArea(), tr.getPerimeter(), crl.getArea()};
-
-        /*Arrays.sort(array, new sortedByArea());
-
-        for (double i : array)
-            System.out.print(i + " ");*/
+    public static Shapes getSecondMaxPerimeter(Shapes[] arrayShape) {
+        Arrays.sort(arrayShape, new sortedByPerimeter());
+        return ((arrayShape[arrayShape.length - (arrayShape.length - 1)]));
     }
 }
+
 
 
 

@@ -49,18 +49,15 @@ public class Triangle implements Shapes {
         }
     }
 
-
     @Override
     public double getWidth() {
         return getMax(x1, x2, x3) - getMin(x1, x2, x3);
     }
 
-
     @Override
     public double getHeight() {
         return getMax(y1, y2, y3) - getMin(y1, y2, y3);
     }
-
 
     @Override
     public double getArea() {
@@ -73,5 +70,31 @@ public class Triangle implements Shapes {
         double b = Math.sqrt(Math.pow((x3 - 2), 2) + Math.pow((y3 - y2), 2));
         double c = Math.sqrt(Math.pow((x3 - x1), 2) + Math.pow((y3 - y1), 2));
         return (a + b + c);
+    }
+
+    @Override
+    public String toString() {
+        return "Треугольник : Площадь: " + getArea() + "\n" + " Периметр: " + getPerimeter() + "\n" + " Высота:" + getHeight() + "\n" + " Ширина: " + getWidth() + "\n";
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 31;
+        int result = 1;
+        result = prime * result + Double.hashCode(x1);
+        result = prime * result + Double.hashCode(x2);
+        result = prime * result + Double.hashCode(x3);
+        result = prime * result + Double.hashCode(y1);
+        result = prime * result + Double.hashCode(y2);
+        result = prime * result + Double.hashCode(y3);
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Triangle))
+            return false;
+        Triangle p = (Triangle) o;
+        return (o == this) || (x1 == p.x1 && x2 == p.x2 && x3 == p.x3 && y1 == p.y1 && y2 == p.y2 && y3 == p.y3);
     }
 }
