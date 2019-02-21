@@ -1,24 +1,20 @@
 package ru.academits.ivan.shapes.Main.Shapes;
 
-public class Square implements Shapes {
+public class Square implements Shape {
     private double width;
 
     public Square(double width) {
         this.width = width;
     }
 
-    public void setWidth() {
-        this.width = width;
-    }
-
     @Override
     public double getWidth() {
-        return this.width;
+        return width;
     }
 
     @Override
     public double getHeight() {
-        return 0;
+        return width;
     }
 
     @Override
@@ -33,23 +29,23 @@ public class Square implements Shapes {
 
     @Override
     public String toString() {
-        return "Квадрат  " + "\n" + "Периметр: " + getPerimeter() + "\n" + "Площадь: " + getArea() + "\n" + "Длина стороны: " + width + "\n";
+        return "[Квадрат ( " + this.width + "), (P = " + getPerimeter() + " , S = " + getArea() + ", Side = " + getWidth() + ")]";
     }
 
     @Override
     public int hashCode() {
-        int prime = 31;
-        int result = 1;
-        result = prime * result + Double.hashCode(width);
-
-        return result;
+        return Double.hashCode(width);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Square))
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != getClass()) {
             return false;
+        }
         Square p = (Square) o;
-        return (o == this) || (width == p.width);
+        return width == p.width;
     }
 }

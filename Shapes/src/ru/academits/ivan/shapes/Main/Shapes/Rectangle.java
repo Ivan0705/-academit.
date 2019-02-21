@@ -1,6 +1,6 @@
 package ru.academits.ivan.shapes.Main.Shapes;
 
-public class Rectangle implements Shapes {
+public class Rectangle implements Shape {
     private double width;
     private double height;
 
@@ -11,20 +11,12 @@ public class Rectangle implements Shapes {
 
     @Override
     public double getWidth() {
-        return 0;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
+        return width;
     }
 
     @Override
     public double getHeight() {
-        return 0;
+        return height;
     }
 
     @Override
@@ -39,7 +31,7 @@ public class Rectangle implements Shapes {
 
     @Override
     public String toString() {
-        return "Прямоугольник " + "\n" + "Площадь: " + getArea() + "\n" + "Периметр:" + getPerimeter() + "\n" + "Ширина:" + width + "\n" + "Высота:" + height + "\n";
+        return "[Прямоугольник (S = " + this.height + " * " + this.width + " = " + getArea() + ", P = " + getPerimeter() + ", Height = " + getHeight() + ", Width = " + getWidth() + ")]";
     }
 
     @Override
@@ -53,9 +45,13 @@ public class Rectangle implements Shapes {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Rectangle))
+        if (this == o) {
+            return true;
+        }
+        if (o == null || this.getClass() != getClass()) {
             return false;
+        }
         Rectangle p = (Rectangle) o;
-        return (o == this) || (width == p.width && height == p.height);
+        return width == p.width && height == p.height;
     }
 }

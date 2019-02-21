@@ -13,25 +13,46 @@ public class Main {
         Triangle triangle1 = new Triangle(5, 2, 6, 3, 9, 11);
         Circle circle = new Circle(2);
 
-        Shapes[] array = new Shapes[]{triangle, rectangle, square, triangle1, circle, rectangle1};
-        StringBuilder stringBuilder = new StringBuilder();
-
-        stringBuilder.append(getMaxArea(array).toString())
-                .append("\n")
-                .append(getSecondMaxPerimeter(array).toString());
-
-        String result = stringBuilder.toString();
-        System.out.println(result);
+        Shape[] array = {triangle, rectangle, square, triangle1, circle, rectangle1};
+        System.out.println("Площадь всех фигур: " + getSumArea(array));
+        System.out.println();
+        System.out.println("Максимальная площадь: " + getMaxArea(array));
+        System.out.println("Площади всех фигур: ");
+        for (Shape s : array) {
+            System.out.println("S: " + s.getArea());
+        }
+        System.out.println();
+        System.out.println("Фигура со вторым по величине периметром " + getSecondMaxPerimeter(array));
+        System.out.println();
+        System.out.println("Периметры фигур:");
+        for (Shape p : array) {
+            System.out.println("P: " + p.getPerimeter());
+        }
+        System.out.println();
+        System.out.println("Сравниваем 2 прямоугольника");
+        if (rectangle.equals(rectangle1)) {
+            System.out.println("Фигуры одинаковы");
+        } else {
+            System.out.println("Фигуры разные");
+        }
     }
 
-    public static Shapes getMaxArea(Shapes[] arrayShapes) {
-        Arrays.sort(arrayShapes, new sortedByArea());
-        return ((arrayShapes[arrayShapes.length - 1]));
+    public static double getSumArea(Shape[] arr) {
+        double result = 0;
+        for (Shape e : arr) {
+            result += e.getArea();
+        }
+        return result;
     }
 
-    public static Shapes getSecondMaxPerimeter(Shapes[] arrayShape) {
-        Arrays.sort(arrayShape, new sortedByPerimeter());
-        return ((arrayShape[arrayShape.length - (arrayShape.length - 1)]));
+    public static Shape getMaxArea(Shape[] arr) {
+        Arrays.sort(arr, new SortedByAreaComparator());
+        return arr[0];
+    }
+
+    public static Shape getSecondMaxPerimeter(Shape[] arr) {
+        Arrays.sort(arr, new SortedByPerimeterComparator());
+        return arr[1];
     }
 }
 
