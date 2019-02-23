@@ -30,8 +30,6 @@ public class Square implements Shape {
     @Override
     public String toString() {
         return "[Квадрат( сторона = " + this.side + ")]";
-        /*String square="[Квадрат ("  + this.side +" ), (P = " + getPerimeter() +"  , S = " + getArea() +" , Side = " + getWidth() + ")]";
-        return  square+System.lineSeparator();*/
     }
 
     @Override
@@ -53,3 +51,4 @@ public class Square implements Shape {
         return (side == p.side);
     }
 }
+

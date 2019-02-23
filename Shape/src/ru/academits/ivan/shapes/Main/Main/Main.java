@@ -2,7 +2,7 @@ package ru.academits.ivan.shapes.Main.Main;
 
 import ru.academits.ivan.shapes.Main.Shapes.*;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -60,9 +60,3 @@ public class Main {
         return array[1];
     }
 }
-
-
-
-
-
-
