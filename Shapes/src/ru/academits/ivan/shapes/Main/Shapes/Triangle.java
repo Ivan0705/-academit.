@@ -62,10 +62,9 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "[Треугольник (" + this.x1 + "-" + this.y1 + "), (" + this.x2 + "-" + this.y2 + "), (" + this.x3 + "-" + this.y3 + ")]";
-        /*String trianglePath1 = "[Треугольник (" + this.x1 + "-" + this.y1 + "), (" + this.x2 + "-" + this.y2 + "), (" + this.x3 + "-" + this.y3 + ")";
+        String trianglePath1 = "[Треугольник (" + this.x1 + "-" + this.y1 + "), (" + this.x2 + "-" + this.y2 + "), (" + this.x3 + "-" + this.y3 + ")";
         String trianglePath2 = ", (S = " + getArea() + ", P = " + getPerimeter() + ", Width = " + getWidth() + ", Height = " + getHeight() + ")]";
-        return (trianglePath1 + System.lineSeparator() + trianglePath2);*/
+        return (trianglePath1 + System.lineSeparator() + trianglePath2);
     }
 
     @Override

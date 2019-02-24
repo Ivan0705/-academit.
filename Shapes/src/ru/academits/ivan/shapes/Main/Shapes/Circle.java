@@ -29,10 +29,7 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "[Круг (Радиус = "+this.radius+")]";
-        /*
-        String circle = "[Круг (R= " + this.radius + " ), ( " + " S = " + getArea() + ", P =  " + getPerimeter() + ")]";
-        return circle+System.lineSeparator();*/
+        return "[Круг (Радиус = " + this.radius + ")]";
     }
 
     @Override

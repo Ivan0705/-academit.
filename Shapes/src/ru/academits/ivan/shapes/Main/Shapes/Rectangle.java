@@ -31,10 +31,7 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "[Прямоугольник( Сторона1 = " + this.height + ", сторона2 = " + this.height + ")]";
-        /*
-        String rectangle = "[Прямоугольник (S = " + this.height + " * " + this.width + "=  " + getArea() + ", P = " + getPerimeter() + " , Height =" + getHeight() + " , Width = " + getWidth() + ")]";
-        return rectangle + System.lineSeparator();*/
+        return "[Прямоугольник( Сторона1 = " + this.height + ", сторона2 = " + this.width + ")]";
     }
 
     @Override
