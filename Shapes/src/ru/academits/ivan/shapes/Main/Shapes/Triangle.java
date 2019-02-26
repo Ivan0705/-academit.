@@ -25,14 +25,14 @@ public class Triangle implements Shape {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
-    private double getMax(double coordinatePoint1, double coordinatePoint2, double coordinatePoint3) {
+    private static double getMax(double coordinatePoint1, double coordinatePoint2, double coordinatePoint3) {
         if (coordinatePoint1 > Math.max(coordinatePoint2, coordinatePoint3)) {
             return coordinatePoint1;
         }
         return Math.max(coordinatePoint2, coordinatePoint3);
     }
 
-    private double getMin(double coordinatePoint1, double coordinatePoint2, double coordinatePoint3) {
+    private static double getMin(double coordinatePoint1, double coordinatePoint2, double coordinatePoint3) {
         if (coordinatePoint1 < Math.min(coordinatePoint2, coordinatePoint3)) {
             return coordinatePoint1;
         }
