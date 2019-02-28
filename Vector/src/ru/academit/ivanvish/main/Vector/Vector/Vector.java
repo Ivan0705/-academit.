@@ -16,14 +16,6 @@ public class Vector {
         coordinates = Arrays.copyOf(vector.coordinates, vector.coordinates.length);
     }
 
-    public double getSizeVector() {
-        double sum = 0;
-        for (double e : coordinates) {
-            sum += e * e;
-        }
-        return Math.sqrt(sum);
-    }
-
     public Vector(double... a) {
         if (a.length == 0) {
             throw new IllegalArgumentException("Размерность пространства равна нулю или отрицательна!");
@@ -32,14 +24,22 @@ public class Vector {
     }
 
     public Vector(int n, double... a) {
-        if (a.length == 0 || n == 0) {
+        if (n == 0) {
             throw new IllegalArgumentException("Размерность пространства равна нулю или отрицательна!");
         }
         coordinates = Arrays.copyOf(a, n);
     }
 
-    public double getLength() {
+    public double getSize() {
         return coordinates.length;
+    }
+
+    public double getLength() {
+        double sum = 0;
+        for (double e : coordinates) {
+            sum += e * e;
+        }
+        return Math.sqrt(sum);
     }
 
     @Override
@@ -69,10 +69,10 @@ public class Vector {
     }
 
     public void add(Vector vector2) {
-        if (coordinates.length > vector2.coordinates.length) {
+        if (coordinates.length < vector2.coordinates.length) {
             coordinates = Arrays.copyOf(coordinates, vector2.coordinates.length);
         }
-        for (int i = 0; i < coordinates.length; ++i) {
+        for (int i = 0; i < vector2.coordinates.length; ++i) {
             coordinates[i] += vector2.coordinates[i];
         }
     }
@@ -84,10 +84,10 @@ public class Vector {
     }
 
     public void subtraction(Vector vector2) {
-        if (vector2.coordinates.length < coordinates.length) {
+        if (coordinates.length < vector2.coordinates.length) {
             coordinates = Arrays.copyOf(coordinates, vector2.coordinates.length);
         }
-        for (int i = 0; i < coordinates.length; i++) {
+        for (int i = 0; i < vector2.coordinates.length; i++) {
             coordinates[i] -= vector2.coordinates[i];
         }
     }
@@ -98,29 +98,26 @@ public class Vector {
         return vector;
     }
 
-    public void getMultiByScalar(double scalar) {
-        for (double e : coordinates) {
-            scalar *= e;
+    public void getMultiByScalar(int scalar) {
+        for (int i = 0; i < coordinates.length; i++) {
+            coordinates[i] *= scalar;
         }
     }
 
-    public static double getScalar(Vector vector1, Vector vector2) {
+    public static double getScalarProduct(Vector vector1, Vector vector2) {
         double scalar = 0;
         double nMin = Math.min(vector1.coordinates.length, vector2.coordinates.length);
         for (int i = 0; i < nMin; i++) {
-            scalar += i * i;
+            scalar += vector1.coordinates[i] * vector2.coordinates[i];
         }
         return scalar;
     }
 
-
-    public void reversal() {
-        for (int i = 0; i < coordinates.length; i++) {
-            coordinates[i] = (coordinates[i] == 0) ? 0 : coordinates[i] * (-1);
-        }
+    public void turn() {
+        getMultiByScalar(-1);
     }
 
-    public void setElement(int index, int e) {
+    public void setElement(int index, double e) {
         this.coordinates[index] = e;
     }
 

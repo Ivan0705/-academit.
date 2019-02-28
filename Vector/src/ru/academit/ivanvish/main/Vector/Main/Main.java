@@ -33,7 +33,7 @@ public class Main {
             System.out.println("EXCEPTION!Размерность пространства равна нулю или отрицательна!");
             System.out.println();
         }
-        try {
+       /* try {
             int n = -2;
             Vector vector3 = new Vector(n);
             System.out.println(vector3);
@@ -41,7 +41,7 @@ public class Main {
         } catch (IllegalAccessError e) {
             System.out.println("EXCEPTION!Размерность пространства равна нулю или отрицательна!");
             System.out.println();
-        }
+        }*/
         try {
             System.out.println("Копируем вектор");
             Vector vector4 = new Vector(vector1);
@@ -63,7 +63,7 @@ public class Main {
         }
 
         try {
-            System.out.println("Длина массива вектора: " + vector1 + ": " + vector1.getLength());
+            System.out.println("Длина массива вектора: " + vector1 + ": " + vector1.getSize());
             System.out.println();
         } catch (NullPointerException e) {
             System.out.println("EXCEPTION!Размерность вектора  равна нулю!");
@@ -71,7 +71,7 @@ public class Main {
         }
 
         try {
-            System.out.println("Длина вектора: " + vector1.getSizeVector());
+            System.out.println("Длина вектора: " + vector1.getLength());
             System.out.println();
         } catch (IllegalArgumentException e) {
             System.out.println("EXCEPTION!Размерность вектора  равна нулю!");
@@ -79,13 +79,13 @@ public class Main {
         }
 
         Vector vector3 = Vector.getSum(vector1, vector2);
-        System.out.println("Сумма двух ветровов (первый вариант): " + vector1 + " + " + vector2 + "= " + vector3);
+        System.out.println("Сумма двух ветровов (первый вариант): " + vector1 + " + " + vector2 + " = " + vector3);
         vector1.add(vector2);
         System.out.println("Сумма двух ветровов (второй вариант): " + vector1);
         System.out.println();
 
         Vector vector4 = Vector.getDifference(vector1, vector2);
-        System.out.println("Вычитание векторов (первый вариант): " + vector1 + " - " + vector2 + "= " + vector4);
+        System.out.println("Вычитание векторов (первый вариант): " + vector1 + " - " + vector2 + " = " + vector4);
         vector1.subtraction(vector2);
         System.out.println("Вычитание векторов (второй вариант): " + vector1);
         System.out.println();
@@ -93,10 +93,10 @@ public class Main {
         Vector vector6 = new Vector(vector2);
         vector6.getMultiByScalar(7);
         System.out.println("Скалярное произведение на 7: " + vector6);
-        System.out.println("Скалярное произведение векторов : " + vector1 + " и " + vector2 + "= " + Vector.getScalar(vector1, vector2));
+        System.out.println("Скалярное произведение векторов : " + vector1 + " и " + vector2 + " = " + Vector.getScalarProduct(vector1, vector2));
         System.out.println();
 
-        vector1.reversal();
+        vector1.turn();
         System.out.println("Разворот вектора: " + vector1);
         System.out.println();
 
