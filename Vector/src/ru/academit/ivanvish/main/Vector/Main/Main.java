@@ -91,7 +91,7 @@ public class Main {
         System.out.println();
 
         Vector vector6 = new Vector(vector2);
-        vector6.getMultiByScalar(7);
+        vector6.multiByScalar(7);
         System.out.println("Скалярное произведение на 7: " + vector6);
         System.out.println("Скалярное произведение векторов : " + vector1 + " и " + vector2 + " = " + Vector.getScalarProduct(vector1, vector2));
         System.out.println();

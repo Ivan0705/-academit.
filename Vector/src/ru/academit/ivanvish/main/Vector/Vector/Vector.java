@@ -30,7 +30,7 @@ public class Vector {
         coordinates = Arrays.copyOf(a, n);
     }
 
-    public double getSize() {
+    public int getSize() {
         return coordinates.length;
     }
 
@@ -83,12 +83,12 @@ public class Vector {
         return vector;
     }
 
-    public void subtraction(Vector vector2) {
-        if (coordinates.length < vector2.coordinates.length) {
-            coordinates = Arrays.copyOf(coordinates, vector2.coordinates.length);
+    public void subtraction(Vector vector) {
+        if (coordinates.length < vector.coordinates.length) {
+            coordinates = Arrays.copyOf(coordinates, vector.coordinates.length);
         }
-        for (int i = 0; i < vector2.coordinates.length; i++) {
-            coordinates[i] -= vector2.coordinates[i];
+        for (int i = 0; i < vector.coordinates.length; i++) {
+            coordinates[i] -= vector.coordinates[i];
         }
     }
 
@@ -98,7 +98,7 @@ public class Vector {
         return vector;
     }
 
-    public void getMultiByScalar(int scalar) {
+    public void multiByScalar(int scalar) {
         for (int i = 0; i < coordinates.length; i++) {
             coordinates[i] *= scalar;
         }
@@ -114,7 +114,7 @@ public class Vector {
     }
 
     public void turn() {
-        getMultiByScalar(-1);
+        multiByScalar(-1);
     }
 
     public void setElement(int index, double e) {
