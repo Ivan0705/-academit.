@@ -33,17 +33,17 @@ public class Main {
         System.out.println();
 
         try {
-            System.out.println("Получаем вектора по индексу 1: " + m1.getRows(1));
+            System.out.println("Получаем вектора по индексу 1: " + m1.getRow(1));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Не соотвествует индекс вектора размерам матрицы");
             System.out.println();
         }
 
-        System.out.println("Столбец матрицы m1 равен: " + m1.getColmCount());
+        System.out.println("Столбец матрицы m1 равен: " + m1.getColumnCount());
         System.out.println();
         try {
             Vector vector4 = new Vector(c1);
-            m1.setIndex(2, vector4);
+            m1.setRow(2, vector4);
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Не соотвествует индекс вектора размерам матрицы!");
             System.out.println();
@@ -54,7 +54,7 @@ public class Main {
 
 
         System.out.println("До траспортирования матрицы m1: " + m1);
-        m1.transportation();
+        m1.transposition();
         System.out.println("После траспортирования матрицы m1: " + m1);
 
         try {
@@ -70,7 +70,7 @@ public class Main {
 
         System.out.println("Определитель матрицы m1 равен:" + m1.determinant());
 
-        System.out.println("Умножение матрицы на вектор: " + m1.multyScalarByVector(vector1));
+        System.out.println("Умножение матрицы на вектор: " + m1.multiplicationScalarByVector(vector1));
         m1.addMatrix(m);
         System.out.println("Сложение матрицы(Первый вариант): " + m1);
 
@@ -82,6 +82,6 @@ public class Main {
 
         System.out.println("Вычитание матрицы(Второй вариант): " + Matrix.getDiffMatrix(m1, m));
 
-        System.out.println("Умножение матрицы на матрицу:" + Matrix.multiProduction(m1, m));
+        System.out.println("Умножение матрицы на матрицу:" + Matrix.multiplicationOfMatrix(m1, m));
     }
 }

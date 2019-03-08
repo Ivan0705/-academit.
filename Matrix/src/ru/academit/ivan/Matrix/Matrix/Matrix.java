@@ -20,7 +20,7 @@ public class Matrix {
     public Matrix(Matrix matrix) {
         rows = new Vector[matrix.rows.length];
         for (int i = 0; i < matrix.rows.length; i++) {
-            rows[i] = matrix.getRows(i);
+            rows[i] = matrix.getRow(i);
         }
     }
 
@@ -69,29 +69,29 @@ public class Matrix {
         return rows.length;
     }
 
-    public int getColmCount() {
+    public int getColumnCount() {
         return rows[0].getSize();
     }
 
-    public Vector getRows(int i) {
-        if (i < 0 || i > rows.length) {
+    public Vector getRow(int i) {
+        if (i < 0 || i >= rows.length) {
             throw new IndexOutOfBoundsException("Не соотвествует индекс вектора размерам матрицы!");
         }
         return new Vector(rows[i]);
     }
 
-    public void setIndex(int i, Vector vector) {
-        if (i < 0 || i > rows.length) {
+    public void setRow(int i, Vector vector) {
+        if (i < 0 || i >= rows.length) {
             throw new IndexOutOfBoundsException("Не соотвествует индекс вектора размерам матрицы!");
         }
-        if (vector.getSize() != getColmCount()) {
+        if (vector.getSize() != getColumnCount()) {
             throw new IllegalArgumentException("Размер матрицы не совпадает!");
         }
         rows[i] = new Vector(vector);
     }
 
-    public void transportation() {
-        int rowsCount = getColmCount();
+    public void transposition() {
+        int rowsCount = getColumnCount();
         Vector[] vector = new Vector[rowsCount];
         for (int i = 0; i < rowsCount; i++) {
             vector[i] = getColumn(i);
@@ -100,7 +100,7 @@ public class Matrix {
     }
 
     public Vector getColumn(int i) {
-        if (i < 0 || i > getColmCount()) {
+        if (i < 0 || i >= getColumnCount()) {
             throw new IndexOutOfBoundsException("Не соотвествует индекс вектора размерам матрицы!");
         }
         double[] tmp = new double[rows.length];
@@ -118,15 +118,16 @@ public class Matrix {
 
     public double determinant() {
         int rowsCount = rows.length;
-        int colsCount = getColmCount();
+        int colsCount = getColumnCount();
         double det = 0;
-
+        if (rowsCount != colsCount) {
+            throw new IllegalArgumentException("Матрица должна квадратной!");
+        }
         if (colsCount == 1) {
             return rows[0].getElement(0);
         } else if (colsCount == 2) {
             return rows[0].getElement(0) * rows[1].getElement(1) - rows[0].getElement(1) * rows[1].getElement(0);
         } else {
-
             Matrix tmpM = new Matrix(this);
 
             for (int i = 0; i < rowsCount; i++) {
@@ -160,88 +161,86 @@ public class Matrix {
         return str.append("}").toString();
     }
 
-    public Vector multyScalarByVector(Vector vector) {
-        if (vector.getSize() != getColmCount()) {
+    public Vector multiplicationScalarByVector(Vector vector) {
+        if (vector.getSize() != getColumnCount()) {
             throw new IllegalArgumentException("Длина вектора должна равна числу столбцов в матрице!");
         }
         int rowsCount = rows.length;
-        double arrayCount[] = new double[rowsCount];
+        double[] arrayCount = new double[rowsCount];
         for (int i = 0; i < rowsCount; i++) {
             arrayCount[i] = Vector.getScalarProduct(rows[i], vector);
         }
         return new Vector(arrayCount);
     }
 
-    public void addMatrix(Matrix matrix) {
-        int colsCount = getColmCount();
+    public void addMatrix(Matrix matrix1) {
+        int colsCount = getColumnCount();
         int rowsCount = rows.length;
-        int colsCountMatrix = matrix.getColmCount();
-        int rowsCountMatrix = matrix.rows.length;
+        int colsCountMatrix1 = matrix1.getColumnCount();
+        int rowsCountMatrix1 = matrix1.rows.length;
 
-        if (colsCount != colsCountMatrix || rowsCount != rowsCountMatrix) {
+        if (colsCount != colsCountMatrix1 || rowsCount != rowsCountMatrix1) {
             throw new IllegalArgumentException("Размеры матрицы должны совпадать!");
         }
         for (int i = 0; i < rowsCount; i++) {
-            rows[i].add(matrix.rows[i]);
+            rows[i].add(matrix1.rows[i]);
         }
     }
 
-    public void diffMatrix(Matrix matrix) {
-        int colsCount = getColmCount();
+    public void diffMatrix(Matrix matrix1) {
+        int colsCount = getColumnCount();
         int rowsCount = rows.length;
-        int colsCountMatrix = matrix.getColmCount();
-        int rowsCountMatrix = matrix.rows.length;
+        int colsCountMatrix1 = matrix1.getColumnCount();
+        int rowsCountMatrix1 = matrix1.rows.length;
 
-        if (colsCount != colsCountMatrix || rowsCount != rowsCountMatrix) {
+        if (colsCount != colsCountMatrix1 || rowsCount != rowsCountMatrix1) {
             throw new IllegalArgumentException("Размеры матрицы должны совпадать!");
         }
         for (int i = 0; i < rowsCount; i++) {
-            rows[i].subtraction(matrix.rows[i]);
+            rows[i].subtraction(matrix1.rows[i]);
         }
     }
 
-    public static Matrix getAddMatrix(Matrix matrix, Matrix matrix1) {
-
-        int colsCountMatrix = matrix.getColmCount();
-        int rowsCountMatrix = matrix.rows.length;
-        int colsCountMatrix1 = matrix1.getColmCount();
+    public static Matrix getAddMatrix(Matrix matrix1, Matrix matrix2) {
+        int colsCountMatrix1 = matrix1.getColumnCount();
         int rowsCountMatrix1 = matrix1.rows.length;
+        int colsCountMatrix2 = matrix2.getColumnCount();
+        int rowsCountMatrix2 = matrix2.rows.length;
 
-        if (colsCountMatrix1 != colsCountMatrix || rowsCountMatrix1 != rowsCountMatrix) {
+        if (colsCountMatrix1 != colsCountMatrix2 || rowsCountMatrix1 != rowsCountMatrix2) {
             throw new IllegalArgumentException("Размеры матрицы должны совпадать!");
         }
-        matrix.addMatrix(matrix1);
-        return matrix;
+        matrix1.addMatrix(matrix2);
+        return matrix1;
     }
 
-    public static Matrix getDiffMatrix(Matrix matrix, Matrix matrix1) {
-
-        int colsCountMatrix = matrix.getColmCount();
-        int rowsCountMatrix = matrix.rows.length;
-        int colsCountMatrix1 = matrix1.getColmCount();
+    public static Matrix getDiffMatrix(Matrix matrix1, Matrix matrix2) {
+        int colsCountMatrix1 = matrix1.getColumnCount();
         int rowsCountMatrix1 = matrix1.rows.length;
+        int colsCountMatrix2 = matrix2.getColumnCount();
+        int rowsCountMatrix2 = matrix2.rows.length;
 
-        if (colsCountMatrix1 != colsCountMatrix || rowsCountMatrix1 != rowsCountMatrix) {
+        if (colsCountMatrix1 != colsCountMatrix2 || rowsCountMatrix1 != rowsCountMatrix2) {
             throw new IllegalArgumentException("Размеры матрицы должны совпадать!");
         }
-        matrix.diffMatrix(matrix1);
-        return matrix;
+        matrix1.diffMatrix(matrix2);
+        return matrix1;
     }
 
-    public static Matrix multiProduction(Matrix matrix, Matrix matrix1) {
-        int colsCountMatrix = matrix.getColmCount();
-        int rowsCountMatrix = matrix.rows.length;
-        int colsCountMatrix1 = matrix1.getColmCount();
+    public static Matrix multiplicationOfMatrix(Matrix matrix1, Matrix matrix2) {
+        int colsCountMatrix1 = matrix1.getColumnCount();
         int rowsCountMatrix1 = matrix1.rows.length;
+        int colsCountMatrix2 = matrix2.getColumnCount();
+        int rowsCountMatrix2 = matrix2.rows.length;
 
-        double arrayM[][] = new double[rowsCountMatrix][colsCountMatrix];
-        if (colsCountMatrix1 != colsCountMatrix || matrix1.rows.length != matrix.rows.length) {
-            throw new IllegalArgumentException("Размеры матрицы должны совпадать!");
+        if (colsCountMatrix1 != rowsCountMatrix2) {
+            throw new IllegalArgumentException("Количество столбцов первой матрицы должно быть равны кол-ву строк втрой матрицы!");
         }
-        for (int i = 0; i < rowsCountMatrix; i++) {
-            for (int j = 0; j < rowsCountMatrix1; j++)
-                for (int k = 0; k < colsCountMatrix; k++) {
-                    arrayM[i][j] += matrix.rows[i].getElement(i) * matrix1.rows[j].getElement(j);
+        double[][] arrayM = new double[rowsCountMatrix1][colsCountMatrix1];
+        for (int i = 0; i < rowsCountMatrix1; i++) {
+            for (int j = 0; j < colsCountMatrix2; j++)
+                for (int k = 0; k < colsCountMatrix1; k++) {
+                    arrayM[i][j] += matrix1.rows[i].getElement(i) * matrix1.rows[j].getElement(j);
                 }
         }
         return new Matrix(arrayM);
