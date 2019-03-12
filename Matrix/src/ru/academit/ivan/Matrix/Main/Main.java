@@ -39,7 +39,7 @@ public class Main {
             System.out.println();
         }
 
-        System.out.println("Столбец матрицы m1 равен: " + m1.getColumnCount());
+        System.out.println("Столбец матрицы m1 равен: " + m1.getColumnsCount());
         System.out.println();
         try {
             Vector vector4 = new Vector(c1);
@@ -51,7 +51,6 @@ public class Main {
         Matrix matrix = new Matrix(3, 3);
         System.out.println("Размер матрицы: " + matrix);
         System.out.println();
-
 
         System.out.println("До траспортирования матрицы m1: " + m1);
         m1.transposition();
@@ -70,13 +69,14 @@ public class Main {
 
         System.out.println("Определитель матрицы m1 равен:" + m1.determinant());
 
-        System.out.println("Умножение матрицы на вектор: " + m1.multiplicationScalarByVector(vector1));
-        m1.addMatrix(m);
-        System.out.println("Сложение матрицы(Первый вариант): " + m1);
+        System.out.println("Умножение матрицы на вектор: " + m1.multiplicationScalar(vector1));
+        Matrix m2 = new Matrix(m1);
+        m2.addMatrix(m);
+        System.out.println("Сложение матрицы(Первый вариант): " + m2);
 
-        m1.diffMatrix(m);
-        System.out.println("Вычитание матрицы(Первый вариант): " + m1);
-
+        Matrix m3 = new Matrix(m1);
+        m2.diffMatrix(m);
+        System.out.println("Вычитание матрицы(Первый вариант): " + m3);
 
         System.out.println("Сложение матрицы(Второй вариант): " + Matrix.getAddMatrix(m1, m));
 
