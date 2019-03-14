@@ -162,7 +162,7 @@ public class Matrix {
         return str.append("}").toString();
     }
 
-    public Vector multiplicationScalar(Vector vector) {
+    public Vector multiplicationByVector(Vector vector) {
         if (vector.getSize() != getColumnsCount()) {
             throw new IllegalArgumentException("Длина вектора должна равна числу столбцов в матрице!");
         }
@@ -229,11 +229,12 @@ public class Matrix {
         if (colsCountMatrix1 != rowsCountMatrix2) {
             throw new IllegalArgumentException("Количество столбцов первой матрицы должно быть равны кол-ву строк втрой матрицы!");
         }
+
         double[][] arrayM = new double[rowsCountMatrix1][colsCountMatrix2];
         for (int i = 0; i < rowsCountMatrix1; i++) {
             for (int j = 0; j < colsCountMatrix2; j++) {
                 for (int k = 0; k < colsCountMatrix1; k++) {
-                    arrayM[i][j] += matrix1.rows[i].getElement(i) * matrix1.rows[j].getElement(j);
+                    arrayM[i][j] += matrix1.rows[i].getElement(i) * matrix2.rows[j].getElement(j);
                 }
             }
         }

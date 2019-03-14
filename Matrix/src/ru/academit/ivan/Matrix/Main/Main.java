@@ -69,7 +69,7 @@ public class Main {
 
         System.out.println("Определитель матрицы m1 равен:" + m1.determinant());
 
-        System.out.println("Умножение матрицы на вектор: " + m1.multiplicationScalar(vector1));
+        System.out.println("Умножение матрицы на вектор: " + m1.multiplicationByVector(vector1));
         Matrix m2 = new Matrix(m1);
         m2.addMatrix(m);
         System.out.println("Сложение матрицы(Первый вариант): " + m2);
