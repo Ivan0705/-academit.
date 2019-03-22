@@ -234,7 +234,7 @@ public class Matrix {
         for (int i = 0; i < rowsCountMatrix1; i++) {
             for (int j = 0; j < colsCountMatrix2; j++) {
                 for (int k = 0; k < colsCountMatrix1; k++) {
-                    arrayM[i][j] += matrix1.rows[i].getElement(i) * matrix2.rows[j].getElement(j);
+                    arrayM[i][j] += matrix1.rows[i].getElement(k) * matrix2.rows[k].getElement(j);
                 }
             }
         }
