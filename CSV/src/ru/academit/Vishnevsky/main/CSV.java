@@ -9,7 +9,7 @@ public class CSV {
     public static void main(String[] args) {
         if (args.length < 2) {
             System.out.println("Должно быть не меньше 2 аргументов!");
-            System.out.println("Надо сначала передавать этот аргумент: C:\\Users\\Ivan\\IdeaProjects\\-academit\\CSV\\src\\ru\\academit\\Vishnevsky\\main\\source.CSV и второй аргумент: lC:\\Users\\Ivan\\IdeaProjects\\-academit\\CSV\\src\\ru\\academit\\Vishnevsky\\main\\Table.html");
+            System.out.println("Нужно передать 2 аргумента, например так: java CSV.class  C:\\source.CSV  C:\\Table.html");
             return;
         }
 
