@@ -1,18 +1,16 @@
 package ru.academit.Vishnevsky.List;
 
+
 public class ListItem<T> {
-    private ListItem<T> next;
+
     private T data;
+    private ListItem<T> next;
 
     public ListItem() {
     }
 
-    public ListItem(ListItem<T> next, T data) {
+    public ListItem(T data, ListItem<T> next) {
         this.data = data;
-        this.next = next;
-    }
-
-    public ListItem(ListItem<T> next) {
         this.next = next;
     }
 
@@ -20,10 +18,9 @@ public class ListItem<T> {
         this.data = data;
     }
 
-    public ListItem<T> getNext() {
-        return next;
+    public ListItem(ListItem<T> next) {
+        this.next = next;
     }
-
 
     public void setData(T data) {
         this.data = data;
@@ -37,4 +34,7 @@ public class ListItem<T> {
         this.next = next;
     }
 
+    public ListItem<T> getNext() {
+        return next;
+    }
 }
