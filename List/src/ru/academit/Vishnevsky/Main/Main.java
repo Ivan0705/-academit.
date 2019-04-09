@@ -25,7 +25,10 @@ public class Main {
 
         System.out.println("Новый список: " + System.lineSeparator() + list);
         System.out.println();
+
         list.reverse();
+        System.out.println("Разворот списка: " + System.lineSeparator() + list);
+        System.out.println();
 
         System.out.println("Удаление первого элемента: " + list.deleteFirstElement());
         System.out.println();
