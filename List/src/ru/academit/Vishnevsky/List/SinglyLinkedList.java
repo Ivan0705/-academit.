@@ -126,7 +126,6 @@ public class SinglyLinkedList<T> {
             if (p.getNext().getNext() == null) {
                 return false;
             }
-
         }
         return false;
     }
