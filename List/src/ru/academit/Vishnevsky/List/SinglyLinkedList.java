@@ -162,7 +162,6 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList copyList() {
-
         SinglyLinkedList<T> newList = new SinglyLinkedList<>();
 
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
