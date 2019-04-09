@@ -1,13 +1,8 @@
 package ru.academit.Vishnevsky.List;
 
-
 public class ListItem<T> {
-
     private T data;
     private ListItem<T> next;
-
-    public ListItem() {
-    }
 
     public ListItem(T data, ListItem<T> next) {
         this.data = data;
