@@ -166,13 +166,9 @@ public class SinglyLinkedList<T> {
         SinglyLinkedList<T> newList = new SinglyLinkedList<>();
 
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
-
             newList.addElement(p.getData());
-
         }
-
         return newList;
-
     }
 
     @Override
