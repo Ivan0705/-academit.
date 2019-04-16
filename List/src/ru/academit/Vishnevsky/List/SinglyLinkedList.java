@@ -1,5 +1,4 @@
 package ru.academit.Vishnevsky.List;
-
 import java.util.Objects;
 
 public class SinglyLinkedList<T> {
@@ -11,6 +10,9 @@ public class SinglyLinkedList<T> {
     }
 
     public T getFirstElement() {
+        if (count == 0) {
+            throw new IllegalArgumentException("Список пуст!");
+        }
         return head.getData();
     }
 
@@ -19,9 +21,9 @@ public class SinglyLinkedList<T> {
             throw new IndexOutOfBoundsException("Неверный индекс!");
         }
         ListItem<T> element = head;
-        int countElement = 0;
-        while (countElement != index) {
-            countElement++;
+        int i = 0;
+        while (i != index) {
+            i++;
             element = element.getNext();
         }
         return element;
@@ -37,36 +39,35 @@ public class SinglyLinkedList<T> {
         count++;
         if (count == 0) {
             head.setNext(element);
-            head = element;
         }
     }
 
     public void addElement(T data) {
-        ListItem<T> element = new ListItem<>(data, head);
+        ListItem<T> element = new ListItem<>(data);
+
         if (head == null) {
             head = element;
-            count++;
         } else {
-            element.setNext(head);
-            head = element;
+            ListItem<T> tmp = getElement(count - 1);
+            tmp.setNext(element);
             count++;
         }
     }
 
     public void addElement(int index, T data) {
-        if (index > count) {
+        if (index > count || index < 0) {
             throw new IndexOutOfBoundsException("Неверный индекс!");
         }
-        ListItem<T> element = new ListItem<>(data);
         if (index == 0) {
             addFirstElement(data);
         } else if (index == count) {
-            element.setNext(head);
-            head = element;
+            ListItem<T> tail = getElement(count);
+            head.setNext(tail);
+            head = tail;
             count++;
-
         } else {
-            ListItem<T> tmp = getElement(index - 1);
+            ListItem<T> element = new ListItem<>(data);
+            ListItem<T> tmp = getElement(index);
             element.setNext(tmp.getNext());
             tmp.setNext(element);
             count++;
@@ -74,39 +75,41 @@ public class SinglyLinkedList<T> {
     }
 
     public T deleteFirstElement() {
+        if (count == 0) {
+            throw new IllegalArgumentException("Список пуст!");
+        }
         T tmp1 = head.getData();
         head = head.getNext();
-        if (count == 0) {
-            tmp1 = null;
-        }
         count--;
         return tmp1;
     }
 
     public T deleteElement(int index) {
-        if (index > count) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
+        if (index >= count || index < 0) {
+            throw new IndexOutOfBoundsException("Не верный индекс!");
         }
-        ListItem<T> tmp;
         if (index == 0) {
-            deleteFirstElement();
+            return deleteFirstElement();
         }
+        ListItem<T> tmpElements1;
         if (index + 1 == count) {
-            tmp = getElement(index - 1);
-            tmp = tmp.getNext();
-            tmp.setNext(null);
+            ListItem<T> lastElements = getElement(index - 1);
+            tmpElements1 = lastElements.getNext();
+            lastElements.setNext(null);
         } else {
-            ListItem<T> tmp2 = getElement(index - 1);
-            tmp = tmp2.getNext();
-            tmp2.setNext(tmp.getNext());
+            ListItem<T> tmpElements2 = getElement(index - 1);
+            tmpElements1 = tmpElements2.getNext();
+            tmpElements2.setNext(tmpElements1.getNext());
         }
         --count;
-        return tmp.getData();
+        return tmpElements1.getData();
     }
 
     public boolean deleteValue(T data) {
+        if (count == 0) {
+            throw new IllegalArgumentException("Список пуст!");
+        }
         if (Objects.equals(head.getData(), data)) {
-            head = head.getNext();
             count--;
             if (count == 0) {
                 head = null;
@@ -142,7 +145,7 @@ public class SinglyLinkedList<T> {
 
     public void reverse() {
         if (head == null) {
-            System.out.println("Разворот невозможен!");
+            throw new IllegalArgumentException("Список пуст!");
         }
         ListItem<T> lastElement = head;
         for (ListItem<T> p = head, prev = null, prevPrev = null; p != null; prev = p, p = p.getNext()) {
@@ -160,12 +163,22 @@ public class SinglyLinkedList<T> {
         }
     }
 
-    public SinglyLinkedList copyList() {
-        SinglyLinkedList<T> newList = new SinglyLinkedList<>();
-        for (ListItem<T> p = head; p != null; p = p.getNext()) {
-            newList.addElement(p.getData());
+    public SinglyLinkedList<T> copyList() {
+        ListItem<T> lastElement = getElement(count - 1);
+        for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
+            if (p == head) {
+                p = lastElement;
+                continue;
+            }
+            prev.setNext(lastElement);
+            lastElement = prev;
+            if (p.getNext() == null) {
+                head = p;
+                head.setNext(prev);
+                break;
+            }
         }
-        return newList;
+        return new SinglyLinkedList<>();
     }
 
     @Override
@@ -173,6 +186,7 @@ public class SinglyLinkedList<T> {
         StringBuilder str = new StringBuilder();
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
             str.append(p.getData()).append(System.lineSeparator());
+
         }
         return str.toString();
     }

@@ -1,5 +1,4 @@
 package ru.academit.Vishnevsky.Main;
-
 import ru.academit.Vishnevsky.List.SinglyLinkedList;
 
 public class Main {
@@ -13,14 +12,18 @@ public class Main {
         list.addElement(5);
         System.out.println(list);
 
-        System.out.println("Копирование списка:" + System.lineSeparator() + list.copyList());
+        list.copyList();
+        System.out.println("Копирование списка:" + System.lineSeparator() + list);
         System.out.println();
 
-        list.addElement(4, null);
-        System.out.println("Добавление элемента null по индексу 4: " + System.lineSeparator() + list);
+        list.reverse();
+        System.out.println("Разворот списка: " + System.lineSeparator() + list);
+        list.addElement(3, null);
+        System.out.println("Добавление элемента null по индексу 3: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Замена элемента по индексу: " + list.set(2, 1));
+        list.set(2, 1);
+        System.out.println("Замена элемента по индексу: " + list);
         System.out.println();
 
         System.out.println("Новый список: " + System.lineSeparator() + list);
@@ -30,16 +33,16 @@ public class Main {
         System.out.println("Разворот списка: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Удаление первого элемента: " + list.deleteFirstElement());
+        list.deleteFirstElement();
+        System.out.println("Удаление первого элемента: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Удаление элемента по индексу 1: " + list.deleteElement(1));
+        list.deleteElement(1);
+        System.out.println("Удаление элемента по индексу 1: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println(list);
-        System.out.println();
-
-        System.out.println("Получение первого элемента из списка по индексу: " + list.getFirstElement());
+        list.getFirstElement();
+        System.out.println("Получение первого элемента из списка по индексу: " + list);
         System.out.println();
 
         System.out.println("Размер текущего списка: " + list.getSize());
@@ -57,20 +60,20 @@ public class Main {
             System.out.println("Неверный индекс!");
         }
         System.out.println();
+
         System.out.println("Размер списка: " + list.getSize());
 
-
         System.out.println();
-        list.addElement(1);
+        list.addElement(6);
 
-        System.out.println("Новый список: " + System.lineSeparator() + list.toString());
+        System.out.println("Новый список: " + System.lineSeparator() + list);
         System.out.println();
 
         list.addElement(6);
         System.out.println("Добавление элемента " + list.toString());
         System.out.println();
 
-        System.out.println("Новый список: " + System.lineSeparator() + list.toString());
+        System.out.println("Новый список: " + System.lineSeparator() + list);
         System.out.println();
 
         System.out.println("Удаление элемета 6 : " + list.deleteValue(6));
@@ -82,7 +85,8 @@ public class Main {
         System.out.println("Получаем совершенно новый список: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Получение первого элемента: " + list.getFirstElement());
+        list.getFirstElement();
+        System.out.println("Получение первого элемента: " + list);
         System.out.println();
 
         list.set(8, 3);
@@ -90,9 +94,10 @@ public class Main {
         System.out.println();
 
         list.addElement(1, 33);
-        System.out.println("Добавление по индексу 1: " + System.lineSeparator() + list.toString());
+        System.out.println("Добавление по индексу 1: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Удаление последнего индекса: " + list.deleteElement(6));
+        list.deleteElement(6);
+        System.out.println("Удаление последнего индекса: " + list);
     }
 }
