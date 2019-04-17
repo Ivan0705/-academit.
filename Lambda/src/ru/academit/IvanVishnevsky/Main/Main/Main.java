@@ -2,10 +2,7 @@ package ru.academit.IvanVishnevsky.Main.Main;
 
 import ru.academit.IvanVishnevsky.Main.Person.Person;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -36,9 +33,9 @@ public class Main {
                 System.out.println("Средний возраст до 18 лет:" + p + ": " + averageAge));
         System.out.println();
 
-        Map<Integer, List<Person>> personsByAge = persons.stream().filter(p -> p.getAge() > 20 && p.getAge() < 45)
-                .sorted(Comparator.comparingInt(Person::getAge).reversed()).collect(Collectors.groupingBy(Person::getAge));
-        System.out.println("Список людей, возраст которых от 20 до 45: " + personsByAge);
-
+        String personsByAge1 = persons.stream().filter(p -> p.getAge() > 20 && p.getAge() < 45).map(Person::getName)
+                .sorted(Comparator.reverseOrder()).collect(Collectors.joining(", "));
+        System.out.println("Список людей, возраст которых от 20 до 45: " + personsByAge1);
     }
 }
+
