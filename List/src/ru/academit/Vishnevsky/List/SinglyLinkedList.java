@@ -32,12 +32,8 @@ public class SinglyLinkedList<T> {
     }
 
     public void addFirstElement(T data) {
-        ListItem<T> element = new ListItem<>(data, head);
-        head = element;
+        head = new ListItem<>(data, head);
         count++;
-        if (count == 0) {
-            head.setNext(element);
-        }
     }
 
     public void addElement(T data) {
@@ -45,7 +41,7 @@ public class SinglyLinkedList<T> {
         if (head == null) {
             head = element;
         } else {
-            ListItem<T> tail = getElement(count);
+            ListItem<T> tail = getElement(count - 1);
             tail.setNext(element);
         }
         count++;
@@ -88,35 +84,23 @@ public class SinglyLinkedList<T> {
         if (index == 0) {
             return deleteFirstElement();
         }
-        ListItem<T> tmpElements1;
-
         ListItem<T> tmpElements2 = getElement(index - 1);
-        tmpElements1 = tmpElements2.getNext();
+        ListItem<T> tmpElements1 = tmpElements2.getNext();
         tmpElements2.setNext(tmpElements1.getNext());
         --count;
         return tmpElements1.getData();
     }
 
     public boolean deleteValue(T data) {
-        if (Objects.equals(head.getData(), data)) {
-            count--;
-            if (count == 0) {
-                head = null;
-            }
-            return true;
-        }
-
+        ListItem<T> tail = getElement(count);
         for (ListItem<T> p = head; p != null && p.getNext() != null; p = p.getNext()) {
             if (Objects.equals(p.getData(), data)) {
-                if (p.getNext() == head.getNext()) {
-                    p = head;
+                if (tail == p.getNext()) {
+                    head = p;
                 }
                 p.setNext(p.getNext().getNext());
-                count--;
+                --count;
                 return true;
-            }
-            if (p.getNext().getNext() == null) {
-                return false;
             }
         }
         return false;
@@ -150,7 +134,6 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> clone() {
-
         SinglyLinkedList<T> copyList = new SinglyLinkedList<>();
         ListItem<T> itemCopy = new ListItem<>(null, null);
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
@@ -167,7 +150,6 @@ public class SinglyLinkedList<T> {
         }
         return copyList;
     }
-
 
     @Override
     public String toString() {

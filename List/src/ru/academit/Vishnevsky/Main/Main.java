@@ -9,9 +9,9 @@ public class Main {
         list.addFirstElement(1);
         System.out.println("Первый элемент: " + list);
 
-        list.addElement(1);
-        list.addElement(1);
-        list.addElement(5);
+        list.addFirstElement(1);
+        list.addFirstElement(1);
+        list.addFirstElement(5);
         System.out.println(list);
 
         list.reverse();
@@ -78,9 +78,10 @@ public class Main {
         System.out.println("Новый список: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Удаление элемета 6 : " + System.lineSeparator() + list.deleteValue(90));
+        System.out.println("Удаление элемета 6 : " + System.lineSeparator() + list.deleteValue(6));
         System.out.println();
 
+        System.out.println("После удаления элемента по назначению: " + System.lineSeparator() + list);
         list.addElement(0, 1);
         list.addElement(1);
         list.addElement(5);
@@ -99,10 +100,7 @@ public class Main {
         System.out.println("Добавление по индексу 1: " + System.lineSeparator() + list);
         System.out.println();
 
-        list.deleteElement(6);
+        list.deleteElement(5);
         System.out.println("Удаление последнего индекса: " + System.lineSeparator() + list);
-
-        list.clone();
-        System.out.println("+++++" + list);
     }
 }
