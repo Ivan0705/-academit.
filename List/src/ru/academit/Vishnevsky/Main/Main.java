@@ -1,9 +1,11 @@
 package ru.academit.Vishnevsky.Main;
+
 import ru.academit.Vishnevsky.List.SinglyLinkedList;
 
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
+
         list.addFirstElement(1);
         System.out.println("Первый элемент: " + list);
 
@@ -12,18 +14,15 @@ public class Main {
         list.addElement(5);
         System.out.println(list);
 
-        list.copyList();
-        System.out.println("Копирование списка:" + System.lineSeparator() + list);
-        System.out.println();
-
         list.reverse();
         System.out.println("Разворот списка: " + System.lineSeparator() + list);
-        list.addElement(3, null);
+
+        list.addElement(4, null);
         System.out.println("Добавление элемента null по индексу 3: " + System.lineSeparator() + list);
         System.out.println();
 
         list.set(2, 1);
-        System.out.println("Замена элемента по индексу: " + list);
+        System.out.println("Замена элемента по индексу 1: " + System.lineSeparator() + list);
         System.out.println();
 
         System.out.println("Новый список: " + System.lineSeparator() + list);
@@ -37,8 +36,11 @@ public class Main {
         System.out.println("Удаление первого элемента: " + System.lineSeparator() + list);
         System.out.println();
 
-        list.deleteElement(1);
-        System.out.println("Удаление элемента по индексу 1: " + System.lineSeparator() + list);
+        System.out.println("Удаление элемета 6 : " + System.lineSeparator() + list.deleteValue(1));
+        System.out.println();
+
+        list.deleteElement(2);
+        System.out.println("Удаление элемента по индексу 2: " + System.lineSeparator() + list);
         System.out.println();
 
         list.getFirstElement();
@@ -76,7 +78,7 @@ public class Main {
         System.out.println("Новый список: " + System.lineSeparator() + list);
         System.out.println();
 
-        System.out.println("Удаление элемета 6 : " + list.deleteValue(6));
+        System.out.println("Удаление элемета 6 : " + System.lineSeparator() + list.deleteValue(90));
         System.out.println();
 
         list.addElement(0, 1);
@@ -98,6 +100,9 @@ public class Main {
         System.out.println();
 
         list.deleteElement(6);
-        System.out.println("Удаление последнего индекса: " + list);
+        System.out.println("Удаление последнего индекса: " + System.lineSeparator() + list);
+
+        list.clone();
+        System.out.println("+++++" + list);
     }
 }

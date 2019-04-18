@@ -33,9 +33,9 @@ public class Main {
                 System.out.println("Средний возраст до 18 лет:" + p + ": " + averageAge));
         System.out.println();
 
-        String personsByAge1 = persons.stream().filter(p -> p.getAge() > 20 && p.getAge() < 45).map(Person::getName)
+        String personsByAge = persons.stream().filter(p -> p.getAge() >= 20 && p.getAge() <= 45).map(p -> p.getAge() + "[" + p.getName() + "]")
                 .sorted(Comparator.reverseOrder()).collect(Collectors.joining(", "));
-        System.out.println("Список людей, возраст которых от 20 до 45: " + personsByAge1);
+        System.out.println("Список людей, возраст которых от 20 до 45: " + personsByAge);
     }
 }
 

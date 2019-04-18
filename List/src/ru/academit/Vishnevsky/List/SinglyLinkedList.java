@@ -1,4 +1,5 @@
 package ru.academit.Vishnevsky.List;
+
 import java.util.Objects;
 
 public class SinglyLinkedList<T> {
@@ -11,15 +12,12 @@ public class SinglyLinkedList<T> {
 
     public T getFirstElement() {
         if (count == 0) {
-            throw new IllegalArgumentException("Список пуст!");
+            throw new IndexOutOfBoundsException("Список пуст!");
         }
         return head.getData();
     }
 
     private ListItem<T> getElement(int index) {
-        if (index < 0 || index >= count) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
-        }
         ListItem<T> element = head;
         int i = 0;
         while (i != index) {
@@ -44,14 +42,13 @@ public class SinglyLinkedList<T> {
 
     public void addElement(T data) {
         ListItem<T> element = new ListItem<>(data);
-
         if (head == null) {
             head = element;
         } else {
-            ListItem<T> tmp = getElement(count - 1);
-            tmp.setNext(element);
-            count++;
+            ListItem<T> tail = getElement(count);
+            tail.setNext(element);
         }
+        count++;
     }
 
     public void addElement(int index, T data) {
@@ -60,14 +57,14 @@ public class SinglyLinkedList<T> {
         }
         if (index == 0) {
             addFirstElement(data);
-        } else if (index == count) {
+        } else if (index + 1 == count) {
             ListItem<T> tail = getElement(count);
             head.setNext(tail);
             head = tail;
             count++;
         } else {
             ListItem<T> element = new ListItem<>(data);
-            ListItem<T> tmp = getElement(index);
+            ListItem<T> tmp = getElement(index - 1);
             element.setNext(tmp.getNext());
             tmp.setNext(element);
             count++;
@@ -92,23 +89,15 @@ public class SinglyLinkedList<T> {
             return deleteFirstElement();
         }
         ListItem<T> tmpElements1;
-        if (index + 1 == count) {
-            ListItem<T> lastElements = getElement(index - 1);
-            tmpElements1 = lastElements.getNext();
-            lastElements.setNext(null);
-        } else {
-            ListItem<T> tmpElements2 = getElement(index - 1);
-            tmpElements1 = tmpElements2.getNext();
-            tmpElements2.setNext(tmpElements1.getNext());
-        }
+
+        ListItem<T> tmpElements2 = getElement(index - 1);
+        tmpElements1 = tmpElements2.getNext();
+        tmpElements2.setNext(tmpElements1.getNext());
         --count;
         return tmpElements1.getData();
     }
 
     public boolean deleteValue(T data) {
-        if (count == 0) {
-            throw new IllegalArgumentException("Список пуст!");
-        }
         if (Objects.equals(head.getData(), data)) {
             count--;
             if (count == 0) {
@@ -144,9 +133,6 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        if (head == null) {
-            throw new IllegalArgumentException("Список пуст!");
-        }
         ListItem<T> lastElement = head;
         for (ListItem<T> p = head, prev = null, prevPrev = null; p != null; prev = p, p = p.getNext()) {
             if (p == head) {
@@ -163,30 +149,31 @@ public class SinglyLinkedList<T> {
         }
     }
 
-    public SinglyLinkedList<T> copyList() {
-        ListItem<T> lastElement = getElement(count - 1);
+    public SinglyLinkedList<T> clone() {
+
+        SinglyLinkedList<T> copyList = new SinglyLinkedList<>();
+        ListItem<T> itemCopy = new ListItem<>(null, null);
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (p == head) {
-                p = lastElement;
+                p = itemCopy;
                 continue;
             }
-            prev.setNext(lastElement);
-            lastElement = prev;
+            prev.setNext(itemCopy);
+            itemCopy = prev;
             if (p.getNext() == null) {
                 head = p;
                 head.setNext(prev);
-                break;
             }
         }
-        return new SinglyLinkedList<>();
+        return copyList;
     }
+
 
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
             str.append(p.getData()).append(System.lineSeparator());
-
         }
         return str.toString();
     }
