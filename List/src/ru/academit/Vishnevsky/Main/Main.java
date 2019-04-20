@@ -102,5 +102,8 @@ public class Main {
 
         list.deleteElement(5);
         System.out.println("Удаление последнего индекса: " + System.lineSeparator() + list);
+
+        list.cloneList();
+        System.out.println("Копироует список: "+System.lineSeparator()+list);
     }
 }

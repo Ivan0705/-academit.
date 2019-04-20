@@ -69,7 +69,7 @@ public class SinglyLinkedList<T> {
 
     public T deleteFirstElement() {
         if (count == 0) {
-            throw new IllegalArgumentException("Список пуст!");
+            throw new NullPointerException("Список пуст!");
         }
         T tmp1 = head.getData();
         head = head.getNext();
@@ -92,14 +92,14 @@ public class SinglyLinkedList<T> {
     }
 
     public boolean deleteValue(T data) {
-        ListItem<T> tail = getElement(count);
-        for (ListItem<T> p = head; p != null && p.getNext() != null; p = p.getNext()) {
+        for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
             if (Objects.equals(p.getData(), data)) {
-                if (tail == p.getNext()) {
-                    head = p;
+                if (prev == null) {
+                    head = p.getNext();
+                } else {
+                    prev.setNext(p.getNext());
                 }
-                p.setNext(p.getNext().getNext());
-                --count;
+                count--;
                 return true;
             }
         }
@@ -117,6 +117,13 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
+        /*if (count == 0) {
+            System.out.println("Разворот невозможен, т.к. список пустой");
+        }
+        if (count == 1) {
+            System.out.println("Разворот невозможен, т.к. элемент одиночный");
+        }
+        */
         ListItem<T> lastElement = head;
         for (ListItem<T> p = head, prev = null, prevPrev = null; p != null; prev = p, p = p.getNext()) {
             if (p == head) {
@@ -133,7 +140,10 @@ public class SinglyLinkedList<T> {
         }
     }
 
-    public SinglyLinkedList<T> clone() {
+    public SinglyLinkedList<T> cloneList() {
+        /*if (count == 0) {
+            System.out.println("Копировать невозможно, т.к. список пустой");
+        }*/
         SinglyLinkedList<T> copyList = new SinglyLinkedList<>();
         ListItem<T> itemCopy = new ListItem<>(null, null);
         for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
