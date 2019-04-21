@@ -1,38 +1,56 @@
 package ru.academit.Vishnevsky;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int size;
+    private int modCount = 0;
+
 
     public MyArrayList() {
         //noinspection unchecked
-        items =(T[]) new Object[10];
+        items = (T[]) new Object[10];
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return size == 0;
     }
 
     @Override
     public boolean contains(Object o) {
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(items[i], o)) {
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public Iterator<T> iterator() {
-        return null;
+        return new MyListIterator();
     }
+
+    private class MyListIterator implements Iterator<T> {
+        private int currentIndex = -1;
+
+        public boolean hasNext() {
+            return currentIndex + 1 < size;
+        }
+
+        public T next() {
+            ++currentIndex;
+            return items[currentIndex];
+        }
+    }
+
 
     @Override
     public Object[] toArray() {

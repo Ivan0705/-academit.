@@ -5,6 +5,8 @@ import ru.academit.IvanVishnevsky.Main.Person.Person;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.averagingDouble;
+
 public class Main {
     public static void main(String[] args) {
         List<Person> persons = Arrays.asList(
@@ -29,10 +31,10 @@ public class Main {
         System.out.println("Список уникальных имен в новом формате: " + allName2);
         System.out.println();
 
-        /*Map<String, Double> ps1 = persons
+        Map<String, Double> personByMiddleAge = persons
                 .stream()
-                .collect(Collectors.toMap(Person::getName, Person::getAge));
-        ps1.forEach((k, v) -> System.out.println(k + " - " + v));*/
+                .collect(Collectors.groupingBy(Person::getName, averagingDouble(Person::getAge)));
+        personByMiddleAge.forEach((k, v) -> System.out.println("Средний возраст: " + k + " - " + v));
 
         Map<Double, List<Person>> personsByMiddleAge = persons
                 .stream()
@@ -40,7 +42,7 @@ public class Main {
         Double averageAge = persons
                 .stream()
                 .filter(p -> p.getAge() < 18)
-                .collect(Collectors.averagingDouble(Person::getAge));
+                .collect(averagingDouble(Person::getAge));
         personsByMiddleAge.forEach((age, p) ->
                 System.out.println("Средний возраст до 18 лет:" + p + ": " + averageAge));
         System.out.println();
