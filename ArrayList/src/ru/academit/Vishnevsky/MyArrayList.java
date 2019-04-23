@@ -13,6 +13,37 @@ public class MyArrayList<T> implements List<T> {
         items = (T[]) new Object[10];
     }
 
+    public void increaseCapacity(int sizeItem) {
+        int newSize = Math.max(sizeItem, size);
+        items = Arrays.copyOf(items, items.length + newSize);
+    }
+
+    MyArrayList(T[] array) {
+        //noinspection unchecked
+        items = (T[]) new Object[array.length];
+        increaseCapacity(array.length);
+        System.arraycopy(array, 0, items, 0, array.length);
+        size = array.length;
+    }
+
+    public void ensureCapacity(int capasity) {
+        if (items.length >= capasity) {
+            return;
+        }
+        items = Arrays.copyOf(items, capasity);
+    }
+
+    public void trimToSize() {
+        if (items.length == size) {
+            return;
+        }
+        items = Arrays.copyOf(items, size);
+    }
+
+    int getCapacity() {
+        return items.length;
+    }
+
     @Override
     public int size() {
         return size;

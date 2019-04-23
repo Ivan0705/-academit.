@@ -48,7 +48,8 @@ public class Main {
         System.out.println();
 
         List personsByAge = persons
-                .stream().filter(p -> p.getAge() >= 20 && p.getAge() <= 45)
+                .stream()
+                .filter(p -> p.getAge() >= 20 && p.getAge() <= 45)
                 .map(p -> p.getAge() + ": " + p.getName())
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());

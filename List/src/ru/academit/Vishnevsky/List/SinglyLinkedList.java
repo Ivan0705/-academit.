@@ -12,7 +12,7 @@ public class SinglyLinkedList<T> {
 
     public T getFirstElement() {
         if (count == 0) {
-            throw new IndexOutOfBoundsException("Список пуст!");
+            throw new NullPointerException("Список пуст!");
         }
         return head.getData();
     }
@@ -49,17 +49,18 @@ public class SinglyLinkedList<T> {
 
     public void addElement(int index, T data) {
         if (index > count || index < 0) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
+            throw new IndexOutOfBoundsException("Не верный индекс");
         }
+        ListItem<T> element = new ListItem<>(data);
+
         if (index == 0) {
             addFirstElement(data);
-        } else if (index + 1 == count) {
+        } else if (index - 1 == count) {
             ListItem<T> tail = getElement(count);
-            head.setNext(tail);
-            head = tail;
+            tail.setNext(element);
+            head = element;
             count++;
         } else {
-            ListItem<T> element = new ListItem<>(data);
             ListItem<T> tmp = getElement(index - 1);
             element.setNext(tmp.getNext());
             tmp.setNext(element);
@@ -84,11 +85,11 @@ public class SinglyLinkedList<T> {
         if (index == 0) {
             return deleteFirstElement();
         }
-        ListItem<T> tmpElements2 = getElement(index - 1);
-        ListItem<T> tmpElements1 = tmpElements2.getNext();
-        tmpElements2.setNext(tmpElements1.getNext());
+        ListItem<T> tmpElement2 = getElement(index - 1);
+        ListItem<T> tmpElement1 = tmpElement2.getNext();
+        tmpElement2.setNext(tmpElement1.getNext());
         --count;
-        return tmpElements1.getData();
+        return tmpElement1.getData();
     }
 
     public boolean deleteValue(T data) {
@@ -117,13 +118,6 @@ public class SinglyLinkedList<T> {
     }
 
     public void reverse() {
-        /*if (count == 0) {
-            System.out.println("Разворот невозможен, т.к. список пустой");
-        }
-        if (count == 1) {
-            System.out.println("Разворот невозможен, т.к. элемент одиночный");
-        }
-        */
         ListItem<T> lastElement = head;
         for (ListItem<T> p = head, prev = null, prevPrev = null; p != null; prev = p, p = p.getNext()) {
             if (p == head) {
@@ -141,23 +135,23 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList<T> cloneList() {
-        /*if (count == 0) {
-            System.out.println("Копировать невозможно, т.к. список пустой");
-        }*/
         SinglyLinkedList<T> copyList = new SinglyLinkedList<>();
-        ListItem<T> itemCopy = new ListItem<>(null, null);
-        for (ListItem<T> p = head, prev = null; p != null; prev = p, p = p.getNext()) {
+        if (head == null) {
+            return copyList;
+        }
+        ListItem<T> item = new ListItem<>(head.getData(), null);
+
+        for (ListItem<T> p = head; p != null; p = p.getNext()) {
             if (p == head) {
-                p = itemCopy;
-                continue;
-            }
-            prev.setNext(itemCopy);
-            itemCopy = prev;
-            if (p.getNext() == null) {
-                head = p;
-                head.setNext(prev);
+                copyList.count = count;
+            } else {
+                ListItem<T> copyItem = new ListItem<>(p.getData(), null);
+
+                item.setNext(copyItem);
+                item = copyItem;
             }
         }
+        copyList.count = count;
         return copyList;
     }
 
