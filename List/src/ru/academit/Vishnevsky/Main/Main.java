@@ -19,7 +19,7 @@ public class Main {
         list.addElement(4, null);
         System.out.println("Добавление элемента null по индексу 3: " + System.lineSeparator() + list);
         System.out.println();
-/*
+
         list.set(2, 1);
         System.out.println("Замена элемента по индексу 1: " + System.lineSeparator() + list);
         System.out.println();
@@ -103,6 +103,6 @@ public class Main {
         System.out.println("Удаление последнего индекса: " + System.lineSeparator() + list);
 
         list.cloneList();
-        System.out.println("Копирует список: " + System.lineSeparator() + list);*/
+        System.out.println("Копирует список: " + System.lineSeparator() + list);
     }
 }
