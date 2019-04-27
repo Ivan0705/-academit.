@@ -6,18 +6,20 @@ public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
         list.addFirstElement(1);
+
         System.out.println("Первый элемент: " + list);
 
-        list.addFirstElement(1);
-        list.addFirstElement(1);
-        list.addFirstElement(5);
+        list.addElement(1);
+        list.addElement(1);
+        list.addElement(5);
+
         System.out.println(list);
 
         list.reverse();
         System.out.println("Разворот списка: " + System.lineSeparator() + list);
 
         list.addElement(4, null);
-        System.out.println("Добавление элемента null по индексу 3: " + System.lineSeparator() + list);
+        System.out.println("Добавление элемента null по индексу 4: " + System.lineSeparator() + list);
         System.out.println();
 
         list.set(2, 1);
@@ -38,7 +40,7 @@ public class Main {
         System.out.println("Удаление элемета 6 : " + System.lineSeparator() + list.deleteValue(1));
         System.out.println();
 
-        list.deleteElement(2);
+        list.deleteElement(1);
         System.out.println("Удаление элемента по индексу 2: " + System.lineSeparator() + list);
         System.out.println();
 
@@ -49,7 +51,7 @@ public class Main {
         System.out.println("Размер текущего списка: " + list.getSize());
         System.out.println();
         try {
-            System.out.println("Значение по индексу 0: " + list.getElementData(0));
+            System.out.println("Значение по индексу 1: " + list.getElementData(1));
             System.out.println();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Неверный индекс!");
@@ -91,7 +93,7 @@ public class Main {
         System.out.println("Получение первого элемента: " + list);
         System.out.println();
 
-        list.set(8, 3);
+        list.set(3, 8);
         System.out.println("Меняем элемент " + "8" + " по индексу 3: " + System.lineSeparator() + list);
         System.out.println();
 
