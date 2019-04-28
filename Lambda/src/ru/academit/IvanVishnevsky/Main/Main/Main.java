@@ -1,12 +1,10 @@
 package ru.academit.IvanVishnevsky.Main.Main;
 
-import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
 import ru.academit.IvanVishnevsky.Main.Person.Person;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static java.util.Comparator.reverseOrder;
 import static java.util.stream.Collectors.averagingDouble;
 
 public class Main {
@@ -38,37 +36,22 @@ public class Main {
                 .collect(Collectors.groupingBy(Person::getName, averagingDouble(Person::getAge)));
         personByMiddleAge.forEach((k, v) -> System.out.println("Средний возраст: " + k + " - " + v));
 
-
-        Map<Integer, List<Person>> personsByMiddleAge = persons
-                .stream()
-                .collect(Collectors.groupingBy(Person::getAge));
-        Double averageAge = persons
+        List<Person> personUnder18 = persons
                 .stream()
                 .filter(p -> p.getAge() < 18)
-                .collect(averagingDouble(Person::getAge));
-        personsByMiddleAge.forEach((age, p) ->
-                System.out.println("Средний возраст до 18 лет:" + p + ": " + averageAge));
-        System.out.println();
-/*
-       List personsByAge = persons
+                .collect(Collectors.toList());
+        OptionalDouble averageAgeOfPersonUnder18 = personUnder18.stream().mapToDouble(Person::getAge).average();
+        averageAgeOfPersonUnder18.ifPresent(p -> System.out.println());
+
+        List<Person> personsByAgeFrom20To45 = persons
                 .stream()
                 .filter(p -> p.getAge() >= 20 && p.getAge() <= 45)
-                .map(p -> p.getAge() + ": " + p.getName())
-                .sorted(Comparator.reverseOrder())
+                .sorted((p1, p2) -> (int) (p2.getAge() - p1.getAge()))
                 .collect(Collectors.toList());
-        System.out.println(personsByAge);*/
 
-
-        List<String> list = new ArrayList<>();
-        for (Person p : persons) {
-            if (p.getAge() >= 20 && p.getAge() <= 45) {
-                String s = p.getAge() + ": " + p.getName();
-                list.add(s);
-            }
-        }
-        list.sort(reverseOrder());
-        System.out.println(list);
-
+        personsByAgeFrom20To45.stream()
+                .map((p) -> p.getAge() + ": " + p.getName())
+                .forEach(System.out::println);
     }
 }
 
