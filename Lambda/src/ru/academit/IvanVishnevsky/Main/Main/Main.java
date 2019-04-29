@@ -4,7 +4,6 @@ import ru.academit.IvanVishnevsky.Main.Person.Person;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.averagingDouble;
 
