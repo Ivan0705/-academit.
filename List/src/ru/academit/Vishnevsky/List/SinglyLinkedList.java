@@ -138,9 +138,9 @@ public class SinglyLinkedList<T> {
 
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
             if (p == head) {
-                copyList.head = head;
+                copyList.head = p;
             } else {
-                ListItem<T> copyItem = new ListItem<>(p.getData(), p.getNext());
+                ListItem<T> copyItem = new ListItem<>(p.getData(), null);
                 item.setNext(copyItem);
                 item = copyItem;
                 p = p.getNext();
