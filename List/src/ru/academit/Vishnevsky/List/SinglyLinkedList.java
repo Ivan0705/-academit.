@@ -51,11 +51,11 @@ public class SinglyLinkedList<T> {
         if (index > count || index < 0) {
             throw new IndexOutOfBoundsException("Не верный индекс");
         }
-        ListItem<T> element = new ListItem<>(data);
 
         if (index == 0) {
             addFirstElement(data);
         } else {
+            ListItem<T> element = new ListItem<>(data);
             ListItem<T> tmp = getElement(index - 1);
             element.setNext(tmp.getNext());
             tmp.setNext(element);
@@ -138,7 +138,7 @@ public class SinglyLinkedList<T> {
 
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
             if (p == head) {
-                head = item;
+                copyList.head = head;
             } else {
                 ListItem<T> copyItem = new ListItem<>(p.getData(), null);
                 item.setNext(copyItem);

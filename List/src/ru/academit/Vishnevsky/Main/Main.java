@@ -5,14 +5,15 @@ import ru.academit.Vishnevsky.List.SinglyLinkedList;
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
-        list.addFirstElement(1);
+        System.out.println("Копирование пустого списка: "+list.cloneList());
 
+        list.addFirstElement(1);
         System.out.println("Первый элемент: " + list);
+        System.out.println("Копирование первого элемента: " + list.cloneList());
 
         list.addElement(1);
         list.addElement(1);
         list.addElement(5);
-
         System.out.println(list);
 
         list.reverse();
