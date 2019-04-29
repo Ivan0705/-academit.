@@ -1,15 +1,15 @@
 package ru.academit.IvanVishnevsky.Main.Person;
 
 public class Person {
-    private double age;
+    private int age;
     private String name;
 
-    public Person(String name, double age) {
+    public Person(String name, int age) {
         this.name = name;
         this.age = age;
     }
 
-    public double getAge() {
+    public int getAge() {
         return age;
     }
 

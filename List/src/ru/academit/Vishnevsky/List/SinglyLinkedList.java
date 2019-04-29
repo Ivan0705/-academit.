@@ -140,9 +140,10 @@ public class SinglyLinkedList<T> {
             if (p == head) {
                 copyList.head = head;
             } else {
-                ListItem<T> copyItem = new ListItem<>(p.getData(), null);
+                ListItem<T> copyItem = new ListItem<>(p.getData(), p.getNext());
                 item.setNext(copyItem);
                 item = copyItem;
+                p = p.getNext();
             }
         }
         copyList.count = count;

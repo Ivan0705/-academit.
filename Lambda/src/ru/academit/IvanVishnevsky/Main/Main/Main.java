@@ -4,6 +4,7 @@ import ru.academit.IvanVishnevsky.Main.Person.Person;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.averagingDouble;
 
@@ -17,8 +18,7 @@ public class Main {
                 new Person("Владимир", 17),
                 new Person("Василий", 55));
 
-        List allName1 = persons.stream()
-                .map(Person::getName)
+        List<Person> allName1 = persons.stream()
                 .distinct()
                 .collect(Collectors.toList());
         System.out.println("Список уникальных имен: " + allName1);
@@ -40,17 +40,20 @@ public class Main {
                 .stream()
                 .filter(p -> p.getAge() < 18)
                 .collect(Collectors.toList());
-        OptionalDouble averageAgeOfPersonUnder18 = personUnder18.stream().mapToDouble(Person::getAge).average();
-        averageAgeOfPersonUnder18.ifPresent(p -> System.out.println());
+        Double averageAgeOfPersonUnder18 = personUnder18
+                .stream()
+                .filter(p -> p.getAge() < 18)
+                .collect(Collectors.averagingDouble(Person::getAge));
+        System.out.println("Средний возраст до 18 лет: " + averageAgeOfPersonUnder18 + " - " + personUnder18);
 
         List<Person> personsByAgeFrom20To45 = persons
                 .stream()
                 .filter(p -> p.getAge() >= 20 && p.getAge() <= 45)
-                .sorted((p1, p2) -> (int) (p2.getAge() - p1.getAge()))
+                .sorted((p1, p2) -> (p2.getAge() - p1.getAge()))
                 .collect(Collectors.toList());
 
         personsByAgeFrom20To45.stream()
-                .map((p) -> p.getAge() + ": " + p.getName())
+                .map(p -> p.getAge() + ": " + p.getName())
                 .forEach(System.out::println);
     }
 }
