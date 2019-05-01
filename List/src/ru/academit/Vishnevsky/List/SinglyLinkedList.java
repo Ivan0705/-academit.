@@ -135,15 +135,13 @@ public class SinglyLinkedList<T> {
             return copyList;
         }
         ListItem<T> item = new ListItem<>(head.getData(), null);
-
         for (ListItem<T> p = head; p != null; p = p.getNext()) {
             if (p == head) {
-                copyList.head = p;
+                copyList.head = item;
             } else {
-                ListItem<T> copyItem = new ListItem<>(p.getData(), null);
+                ListItem<T> copyItem = new ListItem<>(item.getData(), null);
                 item.setNext(copyItem);
                 item = copyItem;
-                p = p.getNext();
             }
         }
         copyList.count = count;

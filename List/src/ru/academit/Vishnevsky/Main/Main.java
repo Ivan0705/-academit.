@@ -5,7 +5,7 @@ import ru.academit.Vishnevsky.List.SinglyLinkedList;
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList<Integer> list = new SinglyLinkedList<>();
-        System.out.println("Копирование пустого списка: "+list.cloneList());
+        System.out.println("Копирование пустого списка: " + list.cloneList());
 
         list.addFirstElement(1);
         System.out.println("Первый элемент: " + list);
@@ -18,6 +18,8 @@ public class Main {
 
         list.reverse();
         System.out.println("Разворот списка: " + System.lineSeparator() + list);
+        list.cloneList();
+        System.out.println("Копируем список:" + System.lineSeparator() + list);
 
         list.addElement(4, null);
         System.out.println("Добавление элемента null по индексу 4: " + System.lineSeparator() + list);
