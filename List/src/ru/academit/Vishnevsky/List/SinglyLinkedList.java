@@ -139,7 +139,7 @@ public class SinglyLinkedList<T> {
             if (p == head) {
                 copyList.head = item;
             } else {
-                ListItem<T> copyItem = new ListItem<>(item.getData(), null);
+                ListItem<T> copyItem = new ListItem<>(p.getData(), null);
                 item.setNext(copyItem);
                 item = copyItem;
             }
