@@ -7,11 +7,25 @@ public class MyArrayList<T> implements List<T> {
     private T[] items;
     private int modCount;
 
-    public MyArrayList(int capacity) {//noinspection unchecked
+
+    public MyArrayList(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Неверная совместимость!");
+        }
+        //noinspection unchecked
         items = (T[]) new Object[capacity];
     }
 
+
+    private void increaseCapacity(int sizeItem) {
+        int newItem = Math.max(sizeItem, size);
+        items = Arrays.copyOf(items, items.length + newItem);
+    }
+
     public void trimToSize() {
+        if (items.length == size) {
+            return;
+        }
         items = Arrays.copyOf(items, size);
     }
 
@@ -27,18 +41,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-        for (int i = 0; i < size; i++) {
-            if (Objects.equals(items[i], o)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Iterator<T> iterator() {
-        //noinspection unchecked
-        return new MyListIterator();
+        return indexOf(o) >= 0;
     }
 
     @Override
@@ -48,73 +51,133 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public <T> T[] toArray(T[] array) {
+        if (array.length <= size) {
+            //noinspection unchecked
+            return (T[]) toArray();
+        }
         //noinspection SuspiciousSystemArraycopy
         System.arraycopy(items, 0, array, 0, size);
+        if (array.length > size) {
+            array[size] = null;
+        }
         return array;
     }
 
-    private void ensureCapacity() {
-        items = Arrays.copyOf(items, items.length * 2);
+    private void checkIndex(int index, int size) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Неверный индекс!");
+        }
+    }
+
+    public void ensureCapacity(int capacity) {
+        if (items.length >= capacity) {
+            return;
+        }
+        items = Arrays.copyOf(items, capacity);
     }
 
     @Override
     public boolean add(T element) {
-        if (size >= items.length) {
-            ensureCapacity();
+        if (size + 1 >= items.length) {
+            increaseCapacity(1);
         }
         items[size] = element;
         size++;
         modCount++;
         return true;
+
+    }
+
+    private void shiftAndCopy(int index, int newSize) {
+        if (items.length < newSize) {
+            Object[] newArray = new Object[newSize + size];
+
+            System.arraycopy(items, 0, newArray, 0, size);
+            //noinspection unchecked
+            items = (T[]) newArray;
+        }
+
+        if (index < size) {
+            System.arraycopy(items, index, items, newSize - (size - index), size - index);
+        }
+        size = newSize;
     }
 
     @Override
     public void add(int index, T element) {
-        if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
-        }
-        if (size == index) {
+        checkIndex(index, size + 1);
+        shiftAndCopy(index, size + 1);
+        items[index] = element;
+      /*   if (size == index) {
             add(element);
             return;
         }
-        ensureCapacity();
+        increaseCapacity();
         System.arraycopy(items, index, items, index + 1, size - index - 1);
         items[index] = element;
         size++;
-        modCount++;
+        modCount++;*/
     }
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        if (c.size() == 0) {
+
+        //noinspection unchecked
+        add(size, (T) c);
+        /*if (c.size() == 0) {
             return false;
         }
+
+        if (size + c.size() >= items.length) {
+            increaseCapacity(c.size());
+        }
+
         for (Object e : c) {
-            //noinspection unchecked
             add((T) e);
         }
 
-        modCount++;
+        modCount++;*/
         return true;
+
+      /*  if (c.size() == 0) {
+            return false;
+        }
+        for (Object e : c) {
+            add((T) e);
+        }
+        modCount++;
+        return true;-*/
+
     }
+
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Индекс неверный!");
+        checkIndex(index, size);
+        shiftAndCopy(index - 1, size + 1);
+        return true;
+/*
+        shiftAndCopy(index, size + c.size());
+
+        for (Iterator<? extends T> iterator = c.iterator(); iterator.hasNext(); ) {
+            T t = iterator.next();
+            items[index] = t;
+            // index++;
+            return true;
         }
-        if (c.size() == 0) {
+
+        return false;*/
+     /*   if (c.size() == 0) {
             return false;
         }
         if (index < size) {
             int p = 0;
             for (Object e : c) {
-                //noinspection unchecked
                 add(index + p, (T) e);
                 p++;
             }
             return true;
-        } else //noinspection ConstantConditions
+        } else {//noinspection
             if (size == index) {
                 addAll(c);
                 return true;
@@ -122,38 +185,44 @@ public class MyArrayList<T> implements List<T> {
                 size = index;
                 addAll(c);
             }
-        modCount++;
-        return true;
+        }
+        modCount++;*/
+        //   return false;
     }
 
     @Override
     public T remove(int index) {
-        if (index > size || index < 0) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
-
-        }
+        checkIndex(index, size);
         T element = items[index];
-        System.arraycopy(items, index + 1, items, index, size - index - 1);
+        shiftAndCopy(index + 1, size - 1);
+       /* System.arraycopy(items, index + 1, items, index, size - index - 1);
         items[index] = element;
-        size--;
+        size--;*/
         modCount++;
         return element;
     }
 
     @Override
     public boolean remove(Object o) {
-        int myModCount = modCount;
-        remove(indexOf(o));
-        return myModCount != modCount;
+        int index = indexOf(o);
+        if (index >= 0) {
+            shiftAndCopy(index + 1, size - 1);
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        int myModCount = modCount;
-        for (Object e : c) {
-            remove(e);
+        Iterator<?> it = c.iterator();
+        while (it.hasNext()) {
+            // remove(true);
+            remove(c);
+            return true;
         }
-        return myModCount != modCount;
+        return false;
     }
 
     @Override
@@ -166,39 +235,46 @@ public class MyArrayList<T> implements List<T> {
         return true;
     }
 
+
     @Override
     public boolean retainAll(Collection<?> c) {
+        //int myModCount = modCount;
+        int count = 0;
         for (int i = 0; i < size; i++) {
+            if (!contains(items[i])) {
+                count++;
+            } else {
+                items[i - count] = items[i];
+            }
+        }
+        size -= count;
+      /*  for (int i = 0; i < size; i++) {
             if (!c.contains(items[i])) {
                 remove(i);
             }
             i++;
         }
+        return myModCount!=modCount;*/
         return false;
     }
 
     @Override
     public void clear() {
-        for (int i = 0; i < size; i++) {
+       /* for (int i = 0; i < size - 1; i++) {
             items[i] = null;
-        }
+        }*/
         size = 0;
     }
 
     @Override
     public T get(int index) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
-        }
-
+        checkIndex(index, size);
         return items[index];
     }
 
     @Override
     public T set(int index, T element) {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Неверный индекс!");
-        }
+        checkIndex(index, size);
         T tmp = items[index];
         items[index] = element;
         return tmp;
@@ -216,7 +292,7 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public int lastIndexOf(Object o) {
-        for (int i = size - 1; i > size; i--) {
+        for (int i = size - 1; i > 0; i--) {
             if (Objects.equals(items[i], o)) {
                 return i;
             }
@@ -224,24 +300,31 @@ public class MyArrayList<T> implements List<T> {
         return -1;
     }
 
-    @Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
-
-    @Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
-    }
 
     @Override
     public List<T> subList(int fromIndex, int toIndex) {
         return null;
     }
 
-    public class MyListIterator implements Iterator {
+    @Override
+    public ListIterator<T> listIterator() {
+        return listIterator(0);
+    }
+
+    @Override
+    public ListIterator<T> listIterator(int index) {
+        //noinspection ConstantConditions
+        return null;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new MyListIterator();
+    }
+
+    public class MyListIterator implements Iterator<T> {
         private int currentIndex = -1;
-        private int MyModCount = modCount;
+        private int myModCount = modCount;
 
         @Override
         public boolean hasNext() {
@@ -249,11 +332,11 @@ public class MyArrayList<T> implements List<T> {
         }
 
         @Override
-        public Object next() {
+        public T next() {
             if (!hasNext()) {
                 throw new NoSuchElementException("Коллекция кончилась!");
             }
-            if (MyModCount != modCount) {
+            if (myModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился!");
             }
             return items[currentIndex];
@@ -265,7 +348,7 @@ public class MyArrayList<T> implements List<T> {
         StringBuilder str = new StringBuilder("[");
         for (int i = 0; i < size; i++) {
             if (i > 0) {
-                str.append(i).append(", ");
+                str.append(", ");
             }
             str.append(items[i]);
         }

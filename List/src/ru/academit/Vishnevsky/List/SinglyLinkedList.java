@@ -49,7 +49,7 @@ public class SinglyLinkedList<T> {
 
     public void addElement(int index, T data) {
         if (index > count || index < 0) {
-            throw new IndexOutOfBoundsException("Не верный индекс");
+            throw new IndexOutOfBoundsException("Неверный индекс");
         }
 
         if (index == 0) {
@@ -75,7 +75,7 @@ public class SinglyLinkedList<T> {
 
     public T deleteElement(int index) {
         if (index >= count || index < 0) {
-            throw new IndexOutOfBoundsException("Не верный индекс!");
+            throw new IndexOutOfBoundsException("Неверный индекс!");
         }
         if (index == 0) {
             return deleteFirstElement();
