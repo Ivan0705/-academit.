@@ -9,9 +9,7 @@ public class MyArrayList<T> implements List<T> {
 
 
     public MyArrayList(int capacity) {
-        if (capacity < 0) {
-            throw new IllegalArgumentException("Неверная совместимость!");
-        }
+        if (capacity < 0) throw new IllegalArgumentException("Неверный аргумент!");
         //noinspection unchecked
         items = (T[]) new Object[capacity];
     }
@@ -49,13 +47,13 @@ public class MyArrayList<T> implements List<T> {
         return Arrays.copyOf(items, size);
     }
 
+    @SuppressWarnings({"SuspiciousSystemArraycopy", "TypeParameterHidesVisibleType"})
     @Override
     public <T> T[] toArray(T[] array) {
         if (array.length <= size) {
             //noinspection unchecked
             return (T[]) toArray();
         }
-        //noinspection SuspiciousSystemArraycopy
         System.arraycopy(items, 0, array, 0, size);
         if (array.length > size) {
             array[size] = null;
@@ -85,18 +83,15 @@ public class MyArrayList<T> implements List<T> {
         size++;
         modCount++;
         return true;
-
     }
 
     private void shiftAndCopy(int index, int newSize) {
         if (items.length < newSize) {
             Object[] newArray = new Object[newSize + size];
-
             System.arraycopy(items, 0, newArray, 0, size);
             //noinspection unchecked
             items = (T[]) newArray;
         }
-
         if (index < size) {
             System.arraycopy(items, index, items, newSize - (size - index), size - index);
         }
@@ -106,88 +101,52 @@ public class MyArrayList<T> implements List<T> {
     @Override
     public void add(int index, T element) {
         checkIndex(index, size + 1);
-        shiftAndCopy(index, size + 1);
+        System.arraycopy(items, index, items, index + 1, items.length - index - 1);
         items[index] = element;
-      /*   if (size == index) {
-            add(element);
-            return;
-        }
-        increaseCapacity();
-        System.arraycopy(items, index, items, index + 1, size - index - 1);
-        items[index] = element;
-        size++;
-        modCount++;*/
+        ++size;
+        ++modCount;
     }
+
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-
-        //noinspection unchecked
-        add(size, (T) c);
-        /*if (c.size() == 0) {
+        if (c.size() == 0) {
             return false;
         }
-
         if (size + c.size() >= items.length) {
             increaseCapacity(c.size());
         }
-
-        for (Object e : c) {
-            add((T) e);
-        }
-
-        modCount++;*/
-        return true;
-
-      /*  if (c.size() == 0) {
-            return false;
-        }
-        for (Object e : c) {
-            add((T) e);
+        for (T e : c) {
+            add(e);
         }
         modCount++;
-        return true;-*/
-
+        return true;
     }
 
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
         checkIndex(index, size);
-        shiftAndCopy(index - 1, size + 1);
-        return true;
-/*
-        shiftAndCopy(index, size + c.size());
-
-        for (Iterator<? extends T> iterator = c.iterator(); iterator.hasNext(); ) {
-            T t = iterator.next();
-            items[index] = t;
-            // index++;
-            return true;
-        }
-
-        return false;*/
-     /*   if (c.size() == 0) {
+        if (c.size() == 0) {
             return false;
         }
+
         if (index < size) {
             int p = 0;
-            for (Object e : c) {
-                add(index + p, (T) e);
+            for (T e : c) {
+                add(index + p, e);
                 p++;
             }
             return true;
-        } else {//noinspection
-            if (size == index) {
-                addAll(c);
-                return true;
-            } else {
-                size = index;
-                addAll(c);
-            }
+        } else if (index == size) {
+            addAll(c);
+            return true;
+        } else {
+            size = index;
+            addAll(c);
         }
-        modCount++;*/
-        //   return false;
+        modCount++;
+        return true;
     }
 
     @Override
@@ -195,9 +154,6 @@ public class MyArrayList<T> implements List<T> {
         checkIndex(index, size);
         T element = items[index];
         shiftAndCopy(index + 1, size - 1);
-       /* System.arraycopy(items, index + 1, items, index, size - index - 1);
-        items[index] = element;
-        size--;*/
         modCount++;
         return element;
     }
@@ -208,21 +164,17 @@ public class MyArrayList<T> implements List<T> {
         if (index >= 0) {
             shiftAndCopy(index + 1, size - 1);
             return true;
-        } else {
-            return false;
         }
-
+        return false;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        Iterator<?> it = c.iterator();
-        while (it.hasNext()) {
-            // remove(true);
-            remove(c);
-            return true;
+        if (c.size() == 0) {
+            return false;
         }
-        return false;
+        clear();
+        return true;
     }
 
     @Override
@@ -238,31 +190,22 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        //int myModCount = modCount;
-        int count = 0;
         for (int i = 0; i < size; i++) {
-            if (!contains(items[i])) {
-                count++;
-            } else {
-                items[i - count] = items[i];
-            }
-        }
-        size -= count;
-      /*  for (int i = 0; i < size; i++) {
             if (!c.contains(items[i])) {
                 remove(i);
+                return true;
             }
             i++;
         }
-        return myModCount!=modCount;*/
         return false;
     }
 
     @Override
     public void clear() {
-       /* for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size - 1; i++) {
             items[i] = null;
-        }*/
+            i -= 0;
+        }
         size = 0;
     }
 
