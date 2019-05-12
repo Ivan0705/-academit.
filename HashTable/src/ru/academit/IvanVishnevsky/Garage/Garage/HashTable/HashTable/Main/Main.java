@@ -9,13 +9,18 @@ public class Main {
         table1.add("cat2");
         table1.add("cat3");
         System.out.println(table1);
+        table1.remove("cat1");
+        System.out.println(table1);
 
         HashTable<String> table2 = new HashTable<>(10);
         table2.add("dog1");
         table2.add("dog2");
         table2.add("dog3");
         System.out.println(table2);
-        table1.clear();
-        System.out.println("Пустая таблица: " + table1);
+        table1.retainAll(table2);
+        System.out.println(" " + table1);
+        
+        table2.clear();
+        System.out.println("Пустая таблица:" + table2);
     }
 }

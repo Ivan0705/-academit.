@@ -124,18 +124,16 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
-        int tmp = modCount;
-        if (contains(o)) {
-            //noinspection unchecked
-            int index = getIndexElement((T) o);
-            list[index].remove(o);
-            if (list[index].size() == 0) {
-                list[index] = null;
-            }
-            size--;
-            modCount++;
+        boolean isDeleted = false;
+        //noinspection unchecked
+        int index = getIndexElement((T) o);
+        if (list[index] != null) {
+            isDeleted = list[index].remove(o);
         }
-        return modCount != tmp;
+        size--;
+        modCount++;
+
+        return isDeleted;
     }
 
     private int indexOf(Object o) {
@@ -195,9 +193,7 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public void clear() {
         for (int i = 0; i < list.length; i++) {
-            if (list[i] != null) {
-                list[i] = null;
-            }
+            list[i] = null;
         }
         size = 0;
         modCount++;
