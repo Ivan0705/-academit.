@@ -5,7 +5,6 @@ import ru.academit.Vishnevsky.ArrayList.ArrayList.MyArrayList;
 public class Main {
     public static void main(String[] args) {
         MyArrayList<String> list1 = new MyArrayList<>(10);
-
         list1.add("1 element");
         list1.add("2 element");
         list1.add("3 element");

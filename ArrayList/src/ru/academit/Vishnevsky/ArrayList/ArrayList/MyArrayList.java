@@ -95,11 +95,10 @@ public class MyArrayList<T> implements List<T> {
         if (items.length == size) {
             increaseCapacity(1);
         }
-        if (size == index) {
-            add(element);
-        }
+
         System.arraycopy(items, index, items, index + 1, items.length - index - 1);
         items[index] = element;
+        size++;
         modCount++;
     }
 
@@ -128,35 +127,36 @@ public class MyArrayList<T> implements List<T> {
             return false;
         }
         ensureCapacity(size + c.size());
-        System.arraycopy(items, index, items, index + c.size(), size - index + 1);
+        System.arraycopy(items, index, items, index + c.size(), size - index);
         int i = index;
         for (T e : c) {
             items[i] = e;
             i++;
         }
-        modCount++;
         size += c.size();
+        modCount++;
         return true;
     }
 
     @Override
     public T remove(int index) {
-        T element = items[index];
-        if (index < size - 1) {
-            System.arraycopy(items, index + 1,
-                    items, index, size - index - 1);
-        }
+        checkIndex(index, size);
+        T tmp = items[index];
+        System.arraycopy(items, index + 1, items, index, size - (index + 1));
+        ++modCount;
         --size;
-        return element;
+        return tmp;
     }
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            throw new NullPointerException("Список коллекций пуст!");
+        int tmp = modCount;
+        int index = indexOf(o);
+        if (index != -1) {
+            remove(index);
+            return true;
         }
-        remove(indexOf(o));
-        return true;
+        return modCount != tmp;
     }
 
     @Override
@@ -168,16 +168,13 @@ public class MyArrayList<T> implements List<T> {
         if (c.isEmpty()) {
             return false;
         }
+        int tmp = modCount;
         for (Object e : c) {
-            int index = indexOf(e);
-            if (index > -1) {
-                remove(index);
-            } else {
-                return false;
+            while (remove(e)) {
+                size--;
             }
-
         }
-        return true;
+        return modCount != tmp;
     }
 
     @Override
@@ -192,14 +189,14 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
+        int tmp = modCount;
         for (int i = 0; i < size; i++) {
             if (!c.contains(items[i])) {
-                remove(items[i]);
-                return true;
+                remove(i);
+                i--;
             }
-            i++;
         }
-        return false;
+        return modCount != tmp;
     }
 
     @Override
@@ -209,7 +206,6 @@ public class MyArrayList<T> implements List<T> {
         }
         size = 0;
         modCount++;
-
     }
 
     @Override
@@ -303,3 +299,4 @@ public class MyArrayList<T> implements List<T> {
         return str.toString();
     }
 }
+
