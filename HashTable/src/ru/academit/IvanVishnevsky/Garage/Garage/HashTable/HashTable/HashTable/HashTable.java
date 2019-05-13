@@ -124,6 +124,7 @@ public class HashTable<T> implements Collection<T> {
             size++;
         }
         size += c.size();
+        modCount++;
         return true;
     }
 
@@ -138,7 +139,6 @@ public class HashTable<T> implements Collection<T> {
         }
         size--;
         modCount++;
-
         return isDeleted;
     }
 
@@ -180,7 +180,7 @@ public class HashTable<T> implements Collection<T> {
                 }
             }
         }
-        return tmp != modCount;
+        return modCount!= tmp;
     }
 
     @Override
@@ -219,6 +219,5 @@ public class HashTable<T> implements Collection<T> {
             }
         }
         return str.toString();
-
     }
 }
