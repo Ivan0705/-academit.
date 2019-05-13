@@ -143,8 +143,8 @@ public class MyArrayList<T> implements List<T> {
         checkIndex(index, size);
         T tmp = items[index];
         System.arraycopy(items, index + 1, items, index, size - (index + 1));
-        ++modCount;
         --size;
+        ++modCount;
         return tmp;
     }
 
