@@ -42,16 +42,15 @@ public class HashTable<T> implements Collection<T> {
     public Iterator<T> iterator() {
         return new MyIterator();
     }
-
     class MyIterator implements Iterator<T> {
         private int currentIndex = 0;
         private int myModCount = modCount;
-        private int currentListElementIndex = -1;
-        private int elementCounter = 0;
+        private int currentListIndex = -1;
+        private int countElement = 0;
 
         @Override
         public boolean hasNext() {
-            return elementCounter != size;
+            return countElement != size;
         }
 
         @Override
@@ -62,19 +61,18 @@ public class HashTable<T> implements Collection<T> {
             if (myModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился!");
             }
-            if (list[currentIndex] != null && (currentListElementIndex < list[currentIndex].size() - 1)) {
-                currentListElementIndex++;
+            if (list[currentIndex] != null && currentListIndex < list[currentIndex].size() - 1) {
+                currentListIndex++;
             } else {
                 currentIndex++;
                 while (list[currentIndex] == null) {
                     currentIndex++;
                 }
-                currentListElementIndex = 0;
+                currentListIndex = 0;
             }
-            elementCounter++;
-            return list[currentIndex].get(currentListElementIndex);
+            countElement++;
+            return list[currentIndex].get(currentListIndex);
         }
-
     }
 
     @Override
