@@ -17,10 +17,7 @@ public class Main {
         table2.add("dog2");
         table2.add("dog3");
         System.out.println(table2);
-        table1.retainAll(table2);
-        System.out.println(" " + table1);
-        
-        table2.clear();
-        System.out.println("Пустая таблица:" + table2);
+        table1.addAll(table2);
+        System.out.println(table1);
     }
 }

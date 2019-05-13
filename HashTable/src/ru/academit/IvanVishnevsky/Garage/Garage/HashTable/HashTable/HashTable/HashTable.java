@@ -12,11 +12,11 @@ public class HashTable<T> implements Collection<T> {
         if (capacity < 0) {
             throw new IllegalArgumentException("Отрицательное число!");
         }
-        //noinspection unchecked,ConstantConditions
+        //noinspection unchecked
         list = (ArrayList<T>[]) new ArrayList[capacity];
     }
 
-    private int getIndexElement(T element) {
+    private int getIndexElement(Object element) {
         if (element == null) {
             return 0;
         }
@@ -44,13 +44,14 @@ public class HashTable<T> implements Collection<T> {
     }
 
     class MyIterator implements Iterator<T> {
-        int myModCount = modCount;
-        int currentIndex = -1;
-        int currentCountElement = 0;
+        private int currentIndex = 0;
+        private int myModCount = modCount;
+        private int currentListElementIndex = -1;
+        private int elementCounter = 0;
 
         @Override
         public boolean hasNext() {
-            return currentIndex + 1 < size;
+            return elementCounter != size;
         }
 
         @Override
@@ -61,13 +62,19 @@ public class HashTable<T> implements Collection<T> {
             if (myModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился!");
             }
-            if (list[currentCountElement] != null && currentIndex < list[currentCountElement].size()) {
+            if (list[currentIndex] != null && (currentListElementIndex < list[currentIndex].size() - 1)) {
+                currentListElementIndex++;
+            } else {
                 currentIndex++;
+                while (list[currentIndex] == null) {
+                    currentIndex++;
+                }
+                currentListElementIndex = 0;
             }
-            currentIndex++;
-            //noinspection unchecked
-            return (T) list[currentCountElement];
+            elementCounter++;
+            return list[currentIndex].get(currentListElementIndex);
         }
+
     }
 
     @Override
@@ -116,6 +123,7 @@ public class HashTable<T> implements Collection<T> {
 
         for (T e : c) {
             add(e);
+            size++;
         }
         size += c.size();
         return true;
@@ -125,8 +133,8 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         boolean isDeleted = false;
-        //noinspection unchecked
-        int index = getIndexElement((T) o);
+
+        int index = getIndexElement(o);
         if (list[index] != null) {
             isDeleted = list[index].remove(o);
         }
@@ -164,15 +172,17 @@ public class HashTable<T> implements Collection<T> {
         if (c == null) {
             throw new NullPointerException("Пустая коллекция!");
         }
-        for (Object e : c) {
-            int index = indexOf(e);
-            if (index > 0) {
-                remove(index);
-            } else {
-                return false;
+        int tmp = modCount;
+        int index = getIndexElement(c);
+        while (list[index] != null) {
+            for (int i = 0; i < list[index].size() - 1; i++) {
+                if (Objects.equals(list[index].get(i), c)) {
+                    remove(list[index].get(i));
+                    i--;
+                }
             }
         }
-        return true;
+        return tmp != modCount;
     }
 
     @Override
@@ -211,5 +221,6 @@ public class HashTable<T> implements Collection<T> {
             }
         }
         return str.toString();
+
     }
 }
