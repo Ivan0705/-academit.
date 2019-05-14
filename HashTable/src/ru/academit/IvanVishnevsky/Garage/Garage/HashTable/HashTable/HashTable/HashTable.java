@@ -42,6 +42,7 @@ public class HashTable<T> implements Collection<T> {
     public Iterator<T> iterator() {
         return new MyIterator();
     }
+
     class MyIterator implements Iterator<T> {
         private int currentIndex = 0;
         private int myModCount = modCount;
@@ -170,32 +171,40 @@ public class HashTable<T> implements Collection<T> {
         if (c == null) {
             throw new NullPointerException("Пустая коллекция!");
         }
+        if (c.size() == 0) {
+            return false;
+        }
         int tmp = modCount;
-        int index = getIndexElement(c);
-        while (list[index] != null) {
-            for (int i = 0; i < list[index].size() - 1; i++) {
-                if (Objects.equals(list[index].get(i), c)) {
-                    remove(list[index].get(i));
-                    i--;
+        for (ArrayList<T> p : list) {
+            int index = getIndexElement(p);
+            if (list[index] != null) {
+                //noinspection StatementWithEmptyBody,SuspiciousMethodCalls
+                while (p.remove(c)) {
                 }
+                list[index] = null;
             }
         }
-        return modCount!= tmp;
+        return modCount != tmp;
     }
+
 
     @Override
     public boolean retainAll(Collection<?> c) {
         if (c == null) {
             throw new NullPointerException("Пустая коллекция!");
         }
-
-        for (int i = 0; i < size; i++) {
-            if (!c.contains(list[i])) {
-                remove(i);
-                return true;
+        int tmp = modCount;
+        for (ArrayList<T> p : list) {
+            int currentSize = list.length;
+            if (p != null) {
+                while (p.retainAll(c)) {
+                    size--;
+                    modCount++;
+                    size -= currentSize;
+                }
             }
         }
-        return false;
+        return modCount != tmp;
     }
 
     @Override
