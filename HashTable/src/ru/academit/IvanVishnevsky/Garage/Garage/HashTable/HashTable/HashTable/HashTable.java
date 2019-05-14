@@ -199,8 +199,8 @@ public class HashTable<T> implements Collection<T> {
             if (p != null) {
                 while (p.retainAll(c)) {
                     size--;
-                    modCount++;
                     size -= currentSize;
+                    modCount++;
                 }
             }
         }
