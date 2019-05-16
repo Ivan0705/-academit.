@@ -12,12 +12,9 @@
       <module fileurl="file://$PROJECT_DIR$/Matrix/Matrix.iml" filepath="$PROJECT_DIR$/Matrix/Matrix.iml" />
       <module fileurl="file://$PROJECT_DIR$/Range/Range.iml" filepath="$PROJECT_DIR$/Range/Range.iml" />
       <module fileurl="file://$PROJECT_DIR$/Shapes/Shapes.iml" filepath="$PROJECT_DIR$/Shapes/Shapes.iml" />
-      <module fileurl="file://$PROJECT_DIR$/untitled/Shapes1.iml" filepath="$PROJECT_DIR$/untitled/Shapes1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/untitled/Shapes2.iml" filepath="$PROJECT_DIR$/untitled/Shapes2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Swing/Swing.iml" filepath="$PROJECT_DIR$/Swing/Swing.iml" />
       <module fileurl="file://$PROJECT_DIR$/Tree/Tree.iml" filepath="$PROJECT_DIR$/Tree/Tree.iml" />
       <module fileurl="file://$PROJECT_DIR$/Vector/Vector.iml" filepath="$PROJECT_DIR$/Vector/Vector.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Vectror1/Vectror1.iml" filepath="$PROJECT_DIR$/Vectror1/Vectror1.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Shapes/src/ru/ru.iml" filepath="$PROJECT_DIR$/Shapes/src/ru/ru.iml" />
       <module fileurl="file://$PROJECT_DIR$/Shapes/src/src.iml" filepath="$PROJECT_DIR$/Shapes/src/src.iml" />
     </modules>
   </component>

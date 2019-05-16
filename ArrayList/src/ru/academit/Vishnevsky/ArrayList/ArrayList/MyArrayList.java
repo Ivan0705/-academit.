@@ -96,7 +96,7 @@ public class MyArrayList<T> implements List<T> {
             increaseCapacity(1);
         }
 
-        System.arraycopy(items, index, items, index + 1, items.length - index - 1);
+        System.arraycopy(items, index, items, index + 1, size - index);
         items[index] = element;
         size++;
         modCount++;
@@ -118,7 +118,6 @@ public class MyArrayList<T> implements List<T> {
         modCount++;
         return true;
     }
-
 
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
@@ -150,13 +149,12 @@ public class MyArrayList<T> implements List<T> {
 
     @Override
     public boolean remove(Object o) {
-        int tmp = modCount;
         int index = indexOf(o);
         if (index != -1) {
             remove(index);
             return true;
         }
-        return modCount != tmp;
+        return false;
     }
 
     @Override
@@ -170,8 +168,8 @@ public class MyArrayList<T> implements List<T> {
         }
         int tmp = modCount;
         for (Object e : c) {
+            //noinspection StatementWithEmptyBody
             while (remove(e)) {
-                size--;
             }
         }
         return modCount != tmp;
