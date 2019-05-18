@@ -119,9 +119,6 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        if (c == null) {
-            throw new IllegalArgumentException("Список коллекций пуст!");
-        }
         if (size == 0) {
             return false;
         }
@@ -136,7 +133,7 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         if (o == null) {
-            throw new IllegalArgumentException("Список пуст!");
+            throw new NullPointerException("Пустая коллекция!");
         }
         boolean isDeleted = false;
         int index = getElementIndex(o);
