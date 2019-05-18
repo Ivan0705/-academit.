@@ -79,7 +79,6 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-
         Object[] items = new Object[size];
         int index = 0;
         for (T element : this) {
