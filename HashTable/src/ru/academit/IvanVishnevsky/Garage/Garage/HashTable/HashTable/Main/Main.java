@@ -19,7 +19,5 @@ public class Main {
         System.out.println(table2);
         table1.addAll(table2);
         System.out.println(table1);
-
-
     }
 }
