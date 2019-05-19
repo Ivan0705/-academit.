@@ -29,7 +29,7 @@ public class ConvertTemperature extends JFrame {
         panel.add(enterTemperature);
         panel.add(temperatureCalculationResult);
         setContentPane(panel);
-        setSize(400,400);
+        setSize(400, 400);
         setMaximumSize(new Dimension(300, 800));
         setMinimumSize(new Dimension(180, 250));
         setVisible(true);
@@ -51,10 +51,5 @@ public class ConvertTemperature extends JFrame {
                 temperatureCalculationResult.setText(fahrenheitString);
             }
         });
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(300, 600);
     }
 }
