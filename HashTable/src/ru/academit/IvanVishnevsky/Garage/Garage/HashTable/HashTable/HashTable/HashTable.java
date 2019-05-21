@@ -4,20 +4,29 @@ import java.util.*;
 
 public class HashTable<T> implements Collection<T> {
     private int size;
-    private ArrayList<T>[] arrayLists;
+    private ArrayList<T>[] lists;
     private int modCount;
 
+    public HashTable() {
+        //noinspection unchecked
+        lists = (ArrayList<T>[]) new ArrayList[10];
+    }
 
     public HashTable(int capacity) {
+        if (capacity == 0) {
+            throw new IllegalArgumentException("Неверный аргумент!");
+        }
+
         //noinspection unchecked
-        arrayLists = (ArrayList<T>[]) new ArrayList[capacity];
+        lists = (ArrayList<T>[]) new ArrayList[capacity];
     }
+
 
     private int getElementIndex(Object element) {
         if (element == null) {
             return 0;
         }
-        return Math.abs(element.hashCode() % arrayLists.length);
+        return Math.abs(element.hashCode() % lists.length);
     }
 
     @Override
@@ -33,8 +42,8 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean contains(Object o) {
         int index = getElementIndex(o);
-        if (arrayLists[index] != null) {
-            return arrayLists[index].contains(o);
+        if (lists[index] != null) {
+            return lists[index].contains(o);
         }
         return false;
     }
@@ -63,17 +72,17 @@ public class HashTable<T> implements Collection<T> {
             if (myModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился!");
             }
-            if (arrayLists[currentIndex] != null && currentListIndex < arrayLists[currentIndex].size() - 1) {
+            if ((lists[currentIndex] != null) && (currentListIndex < lists[currentIndex].size() - 1)) {
                 currentListIndex++;
             } else {
                 currentIndex++;
-                while (arrayLists[currentIndex] == null) {
+                while (lists[currentIndex] == null) {
                     currentIndex++;
                 }
                 currentListIndex = 0;
             }
             countElement++;
-            return arrayLists[currentIndex].get(currentListIndex);
+            return  lists[currentIndex].get(currentListIndex);
         }
     }
 
@@ -93,10 +102,10 @@ public class HashTable<T> implements Collection<T> {
         if (a == null) {
             throw new NullPointerException("Массив пустой!");
         }
+        Object[] items = toArray();
         if (a.length < size) { //noinspection unchecked
-            return (T1[]) Arrays.copyOf(arrayLists, size, a.getClass());
+            return (T1[]) Arrays.copyOf(items, size, a.getClass());
         }
-        Object items = toArray();
         //noinspection SuspiciousSystemArraycopy
         System.arraycopy(items, 0, a, 0, size);
         if (a.length > size) {
@@ -108,10 +117,11 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public boolean add(T t) {
         int index = getElementIndex(t);
-        if (arrayLists[index] == null) {
-            arrayLists[index] = new ArrayList<>();
+        if (lists[index] == null) {
+            lists[index] = new ArrayList<>();
         }
-        arrayLists[index].add(t);
+        //noinspection
+        lists[index].add(t);
         size++;
         modCount++;
         return true;
@@ -132,22 +142,20 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public boolean remove(Object o) {
-        if (o == null) {
-            throw new NullPointerException("Пустая коллекция!");
-        }
         boolean isDeleted = false;
         int index = getElementIndex(o);
 
-
-        if (arrayLists[index].size() != 0) {
-            isDeleted = arrayLists[index].remove(o);
+        if (lists[index] != null) {
+            isDeleted = lists[index].remove(o);
         }
 
-        if (arrayLists[index].size() == 0) {
-            arrayLists[index] = null;
+        if (lists[index].size() == 0) {
+            lists[index] = null;
         }
-        size--;
-        modCount++;
+        if (isDeleted) {
+            size--;
+            modCount++;
+        }
         return isDeleted;
     }
 
@@ -177,7 +185,7 @@ public class HashTable<T> implements Collection<T> {
         for (Object e : c) {
             int index = getElementIndex(e);
             //noinspection SuspiciousMethodCalls
-            while (arrayLists[index] != null && arrayLists[index].remove(c)) {
+            while (lists[index] != null && lists[index].remove(c)) {
                 size--;
                 modCount++;
             }
@@ -192,11 +200,11 @@ public class HashTable<T> implements Collection<T> {
             throw new NullPointerException("Пустая коллекция!");
         }
         int tmp = modCount;
-        for (ArrayList<T> p : arrayLists) {
-            int currentSize = arrayLists.length;
+        //noinspection
+        for (ArrayList<T> p : lists) {
             if (p != null) {
-                while (p.retainAll(c)) {
-                    size--;
+                int currentSize = p.size();
+                if (p.retainAll(c)) {
                     size -= currentSize - p.size();
                     modCount++;
                 }
@@ -207,8 +215,8 @@ public class HashTable<T> implements Collection<T> {
 
     @Override
     public void clear() {
-        for (int i = 0; i < arrayLists.length; i++) {
-            arrayLists[i] = null;
+        for (int i = 0; i < lists.length; i++) {
+            lists[i] = null;
         }
         size = 0;
         modCount++;
@@ -217,11 +225,11 @@ public class HashTable<T> implements Collection<T> {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (int i = 0; i < arrayLists.length; i++) {
-            if (arrayLists[i] != null) {
+        for (int i = 0; i < lists.length; i++) {
+            if (lists[i] != null) {
                 str.append("Ключ ")
                         .append(i).append(": ")
-                        .append(arrayLists[i].toString())
+                        .append(lists[i].toString())
                         .append(System.lineSeparator());
             }
         }

@@ -12,7 +12,7 @@ public class Main {
         table1.remove("cat1");
         System.out.println(table1);
 
-        HashTable<String> table2 = new HashTable<>(10);
+        HashTable<String> table2 = new HashTable<>();
         table2.add("dog1");
         table2.add("dog2");
         table2.add("dog3");
