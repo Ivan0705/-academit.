@@ -16,7 +16,6 @@ public class HashTable<T> implements Collection<T> {
         if (capacity == 0) {
             throw new IllegalArgumentException("Неверный аргумент!");
         }
-
         //noinspection unchecked
         lists = (ArrayList<T>[]) new ArrayList[capacity];
     }
