@@ -13,13 +13,12 @@ public class HashTable<T> implements Collection<T> {
     }
 
     public HashTable(int capacity) {
-        if (capacity == 0) {
-            throw new IllegalArgumentException("Неверный аргумент!");
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Вместимость списка должна быть  больше нуля!");
         }
         //noinspection unchecked
         lists = (ArrayList<T>[]) new ArrayList[capacity];
     }
-
 
     private int getElementIndex(Object element) {
         if (element == null) {
@@ -52,7 +51,7 @@ public class HashTable<T> implements Collection<T> {
         return new MyIterator();
     }
 
-    class MyIterator implements Iterator<T> {
+    private class MyIterator implements Iterator<T> {
         private int currentIndex = 0;
         private int myModCount = modCount;
         private int currentListIndex = -1;
@@ -71,7 +70,8 @@ public class HashTable<T> implements Collection<T> {
             if (myModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился!");
             }
-            if ((lists[currentIndex] != null) && (currentListIndex < lists[currentIndex].size() - 1)) {
+            if ((lists[currentIndex] != null) && (currentListIndex != lists[currentIndex].size() - 1)) {
+                currentListIndex = -1;
                 currentListIndex++;
             } else {
                 currentIndex++;
@@ -81,7 +81,7 @@ public class HashTable<T> implements Collection<T> {
                 currentListIndex = 0;
             }
             countElement++;
-            return  lists[currentIndex].get(currentListIndex);
+            return lists[currentIndex].get(currentListIndex);
         }
     }
 
