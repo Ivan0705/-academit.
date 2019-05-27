@@ -70,17 +70,16 @@ public class HashTable<T> implements Collection<T> {
             if (myModCount != modCount) {
                 throw new ConcurrentModificationException("Список изменился!");
             }
-            if ((lists[currentIndex] != null) && (currentListIndex != lists[currentIndex].size() - 1)) {
+            if ((lists[currentIndex] == null) || (lists[currentIndex].size() - 1) == currentListIndex) {
                 currentListIndex = -1;
                 currentIndex++;
-            } else {
+            }
+
+            while (lists[currentIndex] == null) {
                 currentIndex++;
-                while (lists[currentIndex] == null) {
-                    currentIndex++;
-                }
-                currentListIndex = 0;
             }
             countElement++;
+            currentListIndex++;
             return lists[currentIndex].get(currentListIndex);
         }
     }
