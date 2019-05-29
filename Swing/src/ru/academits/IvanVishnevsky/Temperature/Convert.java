@@ -58,7 +58,6 @@ public class Convert {
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(panelKelvin, "Нужно вводить только цифры!");
         }
-
     }
 
     private void convertFar() {
