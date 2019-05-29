@@ -2,7 +2,6 @@ package ru.academits.IvanVishnevsky.Temperature;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.NumberFormat;
 
 public class ConvertTemperature extends JFrame {
     private JButton fahrenheitButton;
