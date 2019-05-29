@@ -49,6 +49,7 @@ public class Test {
 
     public class FahrenheitListener implements ActionListener {
         JPanel panelFahrenheit = new JPanel();
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
@@ -66,6 +67,7 @@ public class Test {
 
     public class KelvinListener implements ActionListener {
         JPanel panelKelvin = new JPanel();
+
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
