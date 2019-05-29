@@ -2,8 +2,10 @@ package ru.academits.IvanVishnevsky.Temperature;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class Test extends JFrame {
+public class Test {
     private JButton fahrenheitButton;
     private JButton kelvinButton;
     private JTextField enterTemperature;
@@ -12,67 +14,72 @@ public class Test extends JFrame {
 
     public Test() {
         JFrame frame = new JFrame("Перевод температур");
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         fahrenheitButton = new JButton("Фаренгейт");
         kelvinButton = new JButton("Келвин");
         temperatureCalculationResult = new JLabel();
         enterTemperature = new JTextField(10);
+
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout());
         panel.add(fahrenheitButton);
         panel.add(kelvinButton);
         panel.add(enterTemperature);
         panel.add(temperatureCalculationResult);
+
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        frame.setSize(300, 100);
+        frame.setSize(300, 200);
         frame.setContentPane(panel);
         frame.setVisible(true);
 
-        kelvinButton.addActionListener(e -> {
-            try {
+        ActionListener listener1 = new FahrenheitListener();
+        fahrenheitButton.addActionListener(listener1);
 
-                if (fahrenheitButton == e.getSource()) {
-                    temperature = Double.parseDouble(enterTemperature.getText());
-                    double fahrenheitTemperature = temperature = ((temperature - 32) * 5 / 9);
-                    String fahrenheitString = fahrenheitTemperature + " градусов по Фаренгейту";
-                    temperatureCalculationResult.setText(fahrenheitString);
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(panel, "Нужно вводить цифрами!");
-            }
-        });
-        fahrenheitButton.addActionListener(e -> {
-            try {
-                if (fahrenheitButton == null) {
-                    throw new NullPointerException("Вы ничего не ввели!");
-                }
-                if (fahrenheitButton == e.getSource()) {
-                    temperature = Double.parseDouble(enterTemperature.getText());
-                    double fahrenheitTemperature = temperature = ((temperature - 32) * 5 / 9);
-                    String fahrenheitString = fahrenheitTemperature + " градусов по Фаренгейту";
-                    temperatureCalculationResult.setText(fahrenheitString);
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(panel, "Нужно вводить цифрами!");
-            }
-        });
+        ActionListener listener2 = new KelvinListener();
+        kelvinButton.addActionListener(listener2);
 
-        //     kelvinButton.addActionListener(new KelvinListener());
-
-
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e1) {
+            e1.printStackTrace();
+        }
     }
 
-/*e -> {
-            try {
-                temperature = Double.parseDouble(enterTemperature.getText());
-                double result=KelvinListener;
-                String kelvinTemperature =result+ "градусов по Кельвину!";
-                temperatureCalculationResult.setText(kelvinTemperature);
+    public class FahrenheitListener implements ActionListener {
+        JPanel panelFahrenheit = new JPanel();
 
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(panel, "Температуру нужно вводить цифрами.");
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                if (fahrenheitButton == e.getSource()) {
+                    temperature = Double.parseDouble(enterTemperature.getText());
+                    double result = (temperature - 32) * 5 / 9;
+                    String str = result + " градусов по Фаренгейту!";
+                    temperatureCalculationResult.setText(str);
+                }
+            } catch (NumberFormatException ep) {
+                JOptionPane.showMessageDialog(panelFahrenheit, "Нужно вводить только цифры!");
             }
-        }*/
+        }
+    }
+
+    public class KelvinListener implements ActionListener {
+        JPanel panelKelvin = new JPanel();
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                if (kelvinButton == e.getSource()) {
+                    temperature = Double.parseDouble(enterTemperature.getText());
+                    double result = temperature * 9 / 5 + 32;
+                    String str = result + " градусов по Кельвину!";
+                    temperatureCalculationResult.setText(str);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(panelKelvin, "Нужно вводить только цифры!");
+            }
+        }
+    }
 }
