@@ -1,9 +1,17 @@
 package ru.academit.IvanVishnevsky.Tree;
 
-import com.sun.org.apache.bcel.internal.generic.BIPUSH;
+public class Tree<T> {
+    private T head;
+    private Tree<T> left;
+    private Tree<T> right;
 
-import static java.lang.StrictMath.max;
+    public Tree(T data, Tree<T> left, Tree<T> right) {
+        this.head = data;
+        this.right = right;
+        this.left = left;
+    }
 
-public class Tree<T extends Comparable> {
-
+    public Tree(T data) {
+        this.head= head;
+    }
 }
