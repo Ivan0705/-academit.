@@ -74,7 +74,7 @@ public class HashTable<T> implements Collection<T> {
                 currentListIndex = -1;
                 currentIndex++;
             }
-            while (lists[currentIndex] == null && !isEmpty()) {
+            while (lists[currentIndex] == null || lists[currentIndex].size() - 1 == currentListIndex) {
                 currentIndex++;
             }
             countElement++;
