@@ -55,7 +55,6 @@ public class Convert {
                 JOptionPane.showMessageDialog(FahrenheitPanel, "Нужно вводить только цифры!");
             }
         });
-
         celsiusButton.addActionListener(e -> {
             try {
                 double temperature = Double.parseDouble(outputFieldTemperature.getText());
