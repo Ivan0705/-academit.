@@ -13,7 +13,7 @@ public class FahrenheitConverter {
 
     @Override
     public String toString() {
-        return convertFahrenheit() + " градусов по Фаренгейту!";
+        return String.format("%.4g%n", convertFahrenheit()) + " градусов по Фаренгейту!";
     }
 
 }

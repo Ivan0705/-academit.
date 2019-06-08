@@ -13,6 +13,6 @@ public class KelvinConverter {
 
     @Override
     public String toString() {
-        return convertKelvin() + " градусов по Кельвину!";
+        return String.format("%.4g%n", convertKelvin()) + " градусов по Кельвину!";
     }
 }
