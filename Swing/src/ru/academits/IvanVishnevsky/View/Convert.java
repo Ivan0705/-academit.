@@ -13,7 +13,7 @@ public class Convert {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JLabel temperatureCalculationResult = new JLabel();
-        JLabel inputFieldTemperature = new JLabel("Введите температуру!");
+        JLabel inputFieldTemperature = new JLabel("Введите температуру: ");
         JTextField outputFieldTemperature = new JTextField(10);
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
