@@ -9,8 +9,6 @@ import java.awt.event.FocusListener;
 import java.util.Objects;
 
 public class Converter {
-
-
     public Converter() {
         JFrame frame = new JFrame("Перевод температур");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
