@@ -9,6 +9,7 @@ import java.awt.event.FocusListener;
 import java.util.Objects;
 
 public class Converter {
+    
     public Converter() {
         JFrame frame = new JFrame("Перевод температур");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -23,7 +24,6 @@ public class Converter {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-
         final String[] temperatureType = {"Цельсий", "Фаренгейт", "Кельвин"};
         JComboBox<String> fromTypeTemperature = new JComboBox<>(temperatureType);
         JComboBox<String> toTypeTemperature = new JComboBox<>(temperatureType);
@@ -37,7 +37,6 @@ public class Converter {
         panel.add(toTypeTemperature);
         JButton calculationButton = new JButton("Вычислить");
         panel.add(calculationButton);
-
 
         frame.pack();
         frame.setLocationRelativeTo(null);
