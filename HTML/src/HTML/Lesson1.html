@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Анкета туриста</title>
+</head>
+<body>
+<form method="Post">
+    <div>
+        <label><b>Ваше имя</b></label>
+    </div>
+    <label for="youName"></label><input type="text" maxlength="55" minlength="1" name="имя" id="youName">
+
+    <div>
+        <label><p><strong>Расскажите о Вашем хобби</strong></p></label>
+        <label>
+            <textarea name="myHobby" rows="10" cols="25" id="#1"></textarea>
+        </label>
+    </div>
+    <hr>
+    <div>
+        <b>Ваш пол: </b>
+        <label><input type="radio" checked name="man" value="radio1">M</label>
+        <label><input type="radio" name="woman" value="radio2">Ж</label>
+    </div>
+    <div>
+        <strong>Ваши увлечения<br/></strong>
+        <input type="checkbox" name="a" value="1" id="check21"><label for="check21"> Велосипед</label><br/>
+        <input type="checkbox" name="a" value="2" id="check22"><label for="check22"> Тренажёрный зал</label><br/>
+        <input type="checkbox" name="a" value="3" id="check23"><label for="check23"> Туризм</label><br/>
+    </div>
+    <div id="#forCountry">
+        <label for="country"><strong>Какие страны вы посетили<br/></strong></label>
+        <select name="country" multiple id="country">
+            <option>Франция</option>
+            <option>Перу</option>
+            <option>Египет</option>
+        </select>
+    </div>
+</form>
+<a href="Table.html" target="_blank">Ссылка на таблицу</a>
+</body>
+</html>
