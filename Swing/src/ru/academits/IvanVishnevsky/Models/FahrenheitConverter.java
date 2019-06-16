@@ -6,7 +6,6 @@ public class FahrenheitConverter {
 
     public static double converterFromFahrenheitToCelsius(double value) {
         return value - 273.15;
-
     }
 
     public static double converterFromFahrenheitToKelvin(double value) {
