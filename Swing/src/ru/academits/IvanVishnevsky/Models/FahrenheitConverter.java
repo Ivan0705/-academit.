@@ -1,30 +1,18 @@
 package ru.academits.IvanVishnevsky.Models;
 
+public class FahrenheitConverter {
+    public FahrenheitConverter() {
+    }
 
-public class FahrenheitConverter implements ConverterTemperature {
-    static final String NAME = "Фаренгейт";
-
-    @Override
-    public double toCelsius(double value) {
+    public static double converterFromFahrenheitToCelsius(double value) {
         return (value - 32) * 5 / 9;
     }
 
-    @Override
-    public double fromCelsius(double value) {
-        return (value * 1.8) + 32;
-    }
- /*   private double value;
-
-    public FahrenheitConverter(double value) {
-        this.value = value;
+    public static double converterFromFahrenheitToKelvin(double value) {
+        return (value - 32) * 5 / 9 + 273.15;
     }
 
-    private double convertFahrenheit() {
-        return (value - 32) * 5 / 9;
+    public static double converterFromFahrenheitToFahrenheit(double value) {
+        return value;
     }
-
-    @Override
-    public String toString() {
-        return String.format("%.4g%n", convertFahrenheit()) + " градусов по Фаренгейту!";
-    }*/
 }

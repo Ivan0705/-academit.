@@ -1,29 +1,18 @@
 package ru.academits.IvanVishnevsky.Models;
 
-public class CelsiusConverter implements ConverterTemperature{
-    static final String NAME = "Цельсий";
+public class CelsiusConverter {
+    public CelsiusConverter() {
+    }
 
-    @Override
-    public double toCelsius(double value) {
+    public static double convertFromCelsiusToCelsius(double value) {
         return value;
     }
 
-    @Override
-    public double fromCelsius(double value) {
-        return value;
-    }
-   /* private double value;
-
-    public CelsiusConverter(double value) {
-        this.value = value;
+    public static double convertFromCelsiusToKelvin(double value) {
+        return value * 9 / 5 + 32;
     }
 
-    private double convertCelsius() {
-        return value;
+    public static double converterFromCelsiusToFahrenheit(double value) {
+        return (value - 32) * 5 / 9;
     }
-
-    @Override
-    public String toString() {
-        return String.format("%.4g%n", convertCelsius()) + " градусов по Цельсию!";
-    }*/
 }
