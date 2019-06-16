@@ -71,11 +71,11 @@ public class Converter {
             try {
                 double temperature = Double.parseDouble(inputFieldTemperature.getText());
                 double result;
-                String strOption2 = Objects.requireNonNull(fromTypeTemperature.getSelectedItem()).toString();
+                String strOption = Objects.requireNonNull(fromTypeTemperature.getSelectedItem()).toString();
 
-                if ("Цельсий".equals(strOption2)) {
+                if ("Цельсий".equals(strOption)) {
                     result = CelsiusConverter.convertFromCelsiusToCelsius(temperature);
-                } else if ("Фаренгейт".equals(strOption2)) {
+                } else if ("Фаренгейт".equals(strOption)) {
                     result = FahrenheitConverter.converterFromFahrenheitToCelsius(temperature);
                 } else {
                     result = KelvinConverter.convertFromKelvinToCelsius(temperature);
