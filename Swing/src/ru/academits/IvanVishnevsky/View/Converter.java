@@ -95,7 +95,6 @@ public class Converter {
 
                 if ("Цельсий".equals(strOption)) {
                     result = CelsiusConverter.converterFromCelsiusToFahrenheit(temperature);
-
                 } else if ("Фаренгейт".equals(strOption)) {
                     result = FahrenheitConverter.converterFromFahrenheitToFahrenheit(temperature);
                 } else {
