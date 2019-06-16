@@ -61,7 +61,7 @@ public class Converter {
                 } else {
                     result = KelvinConverter.converterFromKelvinToKelvin(temperature);
                 }
-                outputFieldTemperature.setText(String.format("%.4g%n" + result + " градусов по Кельвину"));
+                outputFieldTemperature.setText(String.format("%.4g%n", result) + " градусов по Кельвину");
             } catch (NumberFormatException ew) {
                 JPanel CelsiusPanel = new JPanel();
                 JOptionPane.showMessageDialog(CelsiusPanel, "Нужно вводить только цифры!");
@@ -80,7 +80,7 @@ public class Converter {
                 } else {
                     result = KelvinConverter.convertFromKelvinToCelsius(temperature);
                 }
-                outputFieldTemperature.setText(String.format("%.4g%n" + result + " градусов по Цельсию "));
+                outputFieldTemperature.setText(String.format("%.4g%n", result) + " градусов по Цельсию ");
             } catch (NumberFormatException ew) {
                 JPanel CelsiusPanel = new JPanel();
                 JOptionPane.showMessageDialog(CelsiusPanel, "Нужно вводить только цифры!");
@@ -101,7 +101,7 @@ public class Converter {
                 } else {
                     result = KelvinConverter.converterFromKelvinToFahrenheit(temperature);
                 }
-                outputFieldTemperature.setText(String.format("%.4g%n" + result + " градусов по Фаренгейту"));
+                outputFieldTemperature.setText(String.format("%.4g%n", result) + " градусов по Фаренгейту");
             } catch (NumberFormatException ew) {
                 JPanel CelsiusPanel = new JPanel();
                 JOptionPane.showMessageDialog(CelsiusPanel, "Нужно вводить только цифры!");
