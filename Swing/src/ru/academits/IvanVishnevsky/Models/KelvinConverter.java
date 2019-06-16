@@ -5,7 +5,7 @@ public class KelvinConverter {
     }
 
     public static double convertFromKelvinToCelsius(double value) {
-        return value + 273.15;
+        return value - 273.15;
     }
 
     public static double converterFromKelvinToKelvin(double value) {
@@ -13,6 +13,6 @@ public class KelvinConverter {
     }
 
     public static double converterFromKelvinToFahrenheit(double value) {
-        return (value - 32) * 5 / 9 + 273.15;
+        return (value * 1.8) - 469.67;
     }
 }
