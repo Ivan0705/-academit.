@@ -13,6 +13,6 @@ public class CelsiusConverter {
     }
 
     public static double converterFromCelsiusToFahrenheit(double value) {
-        return (value * 9/5) + 32;
+        return (value * 9 / 5) + 32;
     }
 }
