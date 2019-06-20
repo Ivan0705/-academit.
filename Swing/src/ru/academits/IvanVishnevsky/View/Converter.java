@@ -71,10 +71,8 @@ public class Converter {
                         result = FahrenheitConverter.converterFromFahrenheitToCelsius(temperature);
                     } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Цельсий"))) {
                         result = CelsiusConverter.convertFromCelsiusToKelvin(temperature);
-
                     } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Фаренгейт"))) {
                         result = FahrenheitConverter.converterFromFahrenheitToKelvin(temperature);
-
                     } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Цельсий"))) {
                         result = CelsiusConverter.converterFromCelsiusToFahrenheit(temperature);
                     } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Кельвин"))) {
