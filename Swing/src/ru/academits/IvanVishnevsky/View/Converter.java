@@ -67,31 +67,32 @@ public class Converter {
                 String strResult = null;
                 String fromOption = Objects.requireNonNull(fromTypeTemperature.getSelectedItem()).toString();
                 String toOption = Objects.requireNonNull(toTypeTemperature.getSelectedItem()).toString();
+                NumberFormat formatter = new DecimalFormat("#0.00");
                 if (Objects.equals(fromOption, toOption)) {
                     result = temperature;
-                    strResult = String.format("%.4g%n", result);
+                    strResult = formatter.format(result);
                 } else {
-
                     if (Objects.equals(toOption.compareTo("Кельвин"), fromOption.compareTo("Цельсий"))) {
                         result = CelsiusConverter.toCelsius(temperature);
-                        strResult = String.format("%.4g%n", result);
+                        strResult = formatter.format(result);
                     } else if (Objects.equals(fromOption.compareTo("Цельсий"), toOption.compareTo("Фаренгейт"))) {
                         result = CelsiusConverter.converterFromCelsiusToFahrenheit(temperature);
-                        strResult = String.format("%.4g%n", result);
+                        strResult = formatter.format(result);
                     } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Цельсий"))) {
                         result = KelvinConverter.convertFromKelvinToCelsius(temperature);
-                        strResult = String.format("%.4g%n", result);
+                        strResult = formatter.format(result);
                     } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Фаренгейт"))) {
                         result = KelvinConverter.converterFromKelvinToFahrenheit(temperature);
-                        strResult = String.format("%.4g%n", result);
+                        strResult = formatter.format(result);
                     } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Цельсий"))) {
                         result = FahrenheitConverter.converterFromFahrenheitToCelsius(temperature);
-                        strResult = String.format("%.4g%n", result);
+                        strResult = formatter.format(result);
                     } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Кельвин"))) {
                         result = FahrenheitConverter.converterFromFahrenheitToKelvin(temperature);
-                        strResult = String.format("%.4g%n", result);
+                        strResult = formatter.format(result);
                     }
                 }
+
                 outputFieldTemperature.setText("Результат перевода температур: " + strResult);
             } catch (NumberFormatException ex) {
                 JPanel panel1 = new JPanel();
