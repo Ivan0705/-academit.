@@ -66,20 +66,19 @@ public class Converter {
                     result = temperature;
                 } else {
                     if (Objects.equals(toOption.compareTo("Кельвин"), fromOption.compareTo("Цельсий"))) {
-                        result = KelvinConverter.convertFromKelvinToCelsius(temperature);//tested
-
+                        result = KelvinConverter.convertFromKelvinToCelsius(temperature);
                     } else if (Objects.equals(fromOption.compareTo("Цельсий"), toOption.compareTo("Фаренгейт"))) {
-                        result = FahrenheitConverter.converterFromFahrenheitToCelsius(temperature);//tested
+                        result = FahrenheitConverter.converterFromFahrenheitToCelsius(temperature);
                     } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Цельсий"))) {
-                        result = CelsiusConverter.convertFromCelsiusToKelvin(temperature);//tested
+                        result = CelsiusConverter.convertFromCelsiusToKelvin(temperature);
 
                     } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Фаренгейт"))) {
-                        result = FahrenheitConverter.converterFromFahrenheitToKelvin(temperature);//tested
+                        result = FahrenheitConverter.converterFromFahrenheitToKelvin(temperature);
 
                     } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Цельсий"))) {
-                        result = CelsiusConverter.converterFromCelsiusToFahrenheit(temperature);//tested
+                        result = CelsiusConverter.converterFromCelsiusToFahrenheit(temperature);
                     } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Кельвин"))) {
-                        result = KelvinConverter.converterFromKelvinToFahrenheit(temperature);//tested0
+                        result = KelvinConverter.converterFromKelvinToFahrenheit(temperature);
                     }
                 }
                 strResult = formatter.format(result);
