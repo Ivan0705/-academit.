@@ -1,7 +1,13 @@
 package ru.academits.IvanVishnevsky.Models;
 
 public class FahrenheitConverter {
-    public FahrenheitConverter() {
+    public static double toCelsius(double value) {
+        return (value - 32) * 5 / 9;
+    }
+
+
+    public static double fromCelsius(double value) {
+        return (value * 1.8) + 32;
     }
 
     public static double converterFromFahrenheitToCelsius(double value) {

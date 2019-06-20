@@ -6,6 +6,8 @@ import ru.academits.IvanVishnevsky.Models.KelvinConverter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Objects;
 
 public class Converter {
@@ -14,7 +16,7 @@ public class Converter {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JLabel enterTemperature = new JLabel("Введите температуру:");
         JLabel selectScaleTemperature = new JLabel("Выберите шкалу температур: ");
-
+        JLabel convertScaleTemperature = new JLabel("Перевести в  шкалу температур");
         JTextField inputFieldTemperature = new JTextField(12);
         JLabel outputFieldTemperature = new JLabel();
 
@@ -27,16 +29,27 @@ public class Converter {
         fromTypeTemperature.addItem("Кельвин");
         panel.add(enterTemperature);
         panel.add(inputFieldTemperature);
-        panel.add(outputFieldTemperature);
         panel.add(selectScaleTemperature);
-        panel.add(fromTypeTemperature);
+
 
         JButton KelvinButton = new JButton("Перевести в шкалу Кельвина");
         JButton CelsiusButton = new JButton("Перевести в шкалу  Цельсия");
         JButton FahrenheitButton = new JButton("Перевести в шкалу Фаренгейта");
+
+
+        String[] typeTemperature = {"Цельсий", "Фаренгейт", "Кельвин"};
+        JComboBox<String> toTypeTemperature = new JComboBox<>(typeTemperature);
+
+        panel.add(toTypeTemperature);
+        panel.add(convertScaleTemperature);
+
+        panel.add(fromTypeTemperature);
+        JButton convert = new JButton("Вычислить");
+        panel.add(convert);
         panel.add(KelvinButton);
         panel.add(CelsiusButton);
         panel.add(FahrenheitButton);
+        panel.add(outputFieldTemperature);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -47,7 +60,46 @@ public class Converter {
         frame.setMinimumSize(dimensionMinimum);
         frame.setContentPane(panel);
         frame.setVisible(true);
+        convert.addActionListener(e -> {
+            try {
+                double temperature = Double.parseDouble(inputFieldTemperature.getText());
+                double result;
+                String strResult = null;
+                String fromOption = Objects.requireNonNull(fromTypeTemperature.getSelectedItem()).toString();
+                String toOption = Objects.requireNonNull(toTypeTemperature.getSelectedItem()).toString();
+                if (Objects.equals(fromOption, toOption)) {
+                    result = temperature;
+                    strResult = String.format("%.4g%n", result);
+                } else {
 
+                    if (Objects.equals(toOption.compareTo("Кельвин"), fromOption.compareTo("Цельсий"))) {
+                        result = CelsiusConverter.toCelsius(temperature);
+                        strResult = String.format("%.4g%n", result);
+                    } else if (Objects.equals(fromOption.compareTo("Цельсий"), toOption.compareTo("Фаренгейт"))) {
+                        result = CelsiusConverter.converterFromCelsiusToFahrenheit(temperature);
+                        strResult = String.format("%.4g%n", result);
+                    } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Цельсий"))) {
+                        result = KelvinConverter.convertFromKelvinToCelsius(temperature);
+                        strResult = String.format("%.4g%n", result);
+                    } else if (Objects.equals(fromOption.compareTo("Кельвин"), toOption.compareTo("Фаренгейт"))) {
+                        result = KelvinConverter.converterFromKelvinToFahrenheit(temperature);
+                        strResult = String.format("%.4g%n", result);
+                    } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Цельсий"))) {
+                        result = FahrenheitConverter.converterFromFahrenheitToCelsius(temperature);
+                        strResult = String.format("%.4g%n", result);
+                    } else if (Objects.equals(fromOption.compareTo("Фаренгейт"), toOption.compareTo("Кельвин"))) {
+                        result = FahrenheitConverter.converterFromFahrenheitToKelvin(temperature);
+                        strResult = String.format("%.4g%n", result);
+                    }
+                }
+                outputFieldTemperature.setText("Результат перевода температур: " + strResult);
+            } catch (NumberFormatException ex) {
+                JPanel panel1 = new JPanel();
+                JOptionPane.showMessageDialog(panel1, "Нужно вводить только цифры!");
+            }
+
+
+        });
         KelvinButton.addActionListener(e -> {
             try {
                 double temperature = Double.parseDouble(inputFieldTemperature.getText());
@@ -61,7 +113,8 @@ public class Converter {
                 } else {
                     result = KelvinConverter.converterFromKelvinToKelvin(temperature);
                 }
-                outputFieldTemperature.setText(String.format("%.4g%n", result) + " градусов по Кельвину");
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                outputFieldTemperature.setText(formatter.format(result) + " градусов по Кельвину");
             } catch (NumberFormatException ew) {
                 JPanel CelsiusPanel = new JPanel();
                 JOptionPane.showMessageDialog(CelsiusPanel, "Нужно вводить только цифры!");
@@ -80,7 +133,8 @@ public class Converter {
                 } else {
                     result = KelvinConverter.convertFromKelvinToCelsius(temperature);
                 }
-                outputFieldTemperature.setText(String.format("%.4g%n", result) + " градусов по Цельсию ");
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                outputFieldTemperature.setText(formatter.format(result) + " градусов по Цельсию ");
             } catch (NumberFormatException ew) {
                 JPanel CelsiusPanel = new JPanel();
                 JOptionPane.showMessageDialog(CelsiusPanel, "Нужно вводить только цифры!");
@@ -100,7 +154,8 @@ public class Converter {
                 } else {
                     result = KelvinConverter.converterFromKelvinToFahrenheit(temperature);
                 }
-                outputFieldTemperature.setText(String.format("%.4g%n", result) + " градусов по Фаренгейту");
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                outputFieldTemperature.setText(formatter.format(result) + " градусов по Фаренгейту");
             } catch (NumberFormatException ew) {
                 JPanel CelsiusPanel = new JPanel();
                 JOptionPane.showMessageDialog(CelsiusPanel, "Нужно вводить только цифры!");
@@ -108,7 +163,8 @@ public class Converter {
         });
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e1) {
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException |
+                UnsupportedLookAndFeelException e1) {
             e1.printStackTrace();
         }
     }
